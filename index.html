@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Social Media Encoder</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+.clipboard {
+	background-image: url(./images/clipboard.png);
+    float: right;
+    display: block;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    margin: 0 0 0 10px;    
+}
+.upload {
+    border-bottom: 1px solid #777777;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #333333;
+    border-top: 1px solid #000000;
+    color: red;
+    background-color: lightgray;
+    display: inline-block;
+    height: 20px;
+    padding: 0 1em;
+    width: 144px;       
+    text-decoration: none;       
+}
+.simple-keyboard { max-width: 850px; }
+        </style>
+        <link rel="stylesheet" href="./dist/vkb.css">
+        <script type="text/javascript" src="./dist/all.min.js"></script>
+    </head>
+    <body>
+        <form method="POST" action="qrenc3.php">
+            
+        <section>
+        <fieldset>
+        <legend>Message to Encode/Decode Message</legend>    
+            <a id="copybtn" class='clipboard' title='Copy'></a>
+            <textarea id="enc" name="enc" rows="9" cols="80" class="input" placeholder="Bypassing Censorship , enter your important message , here :"></textarea>
+        <div>
+            <label for="pwd">*(optional) Password for Group:</label>
+            <input type="password" id="pwd" />
+            <p>
+                To have a good encode : please use all lowercase , do not add commas or periods next to a word , have a space so the word can be processed .
+                Use the Virtual Keyboard here, to avoid key stroke loggers!!
+            </p>
+            <div class="simple-keyboard"></div>
+        </div>
+        </fieldset>
+        </section>
+        
+        <section>
+        <fieldset>
+        <legend>Encode a Message</legend>    
+            
+        <label for="mode">Encoding Method</label>
+        <select id="mode">
+            <option value="xor">Weak</option>
+            <!--<option value="shuffle">Not Secure</option>-->
+            <option value="des">Somewhat Secure</option>
+            <option value="aes">Secure</option>
+        </select>
+        
+        <button onclick="btn_enc(); return false;">Encode</button> &nbsp; &nbsp; &nbsp;
+        <!--<button onclick="link_enc()">Make Link</button>-->
+        <button type="submit" id="make" disabled>Make QR</button>
+        </fieldset>
+        </section>
+            
+        </form>
+        
+        <section>
+        <fieldset>
+        <legend>Decode a Message</legend>
+        
+        <button onclick="btn_dec()">Decode</button> &nbsp; &nbsp; &nbsp;
+        <a href="qr.php" class="upload">Upload QR to Decode</a>
+        
+        </fieldset>
+        </section>
+        
+        <footer><a href="https://github.com/Bob-586/SocialMediaEncoder" target="_blank">Download your copy of this project here.</a></footer>
+        
+        <script type="text/javascript" src="./dist/vkb.min.js"></script>
+        <script type="text/javascript">
+let Keyboard = window.SimpleKeyboard.default;
+let myKeyboard = new Keyboard({
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button),
+  newLineOnEnter: true,
+  layout: {
+  'default': [
+    '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+    'q w e r t y u i o p [ ] \\',
+    '{lock} a s d f g h j k l ; \' {enter}',
+    '{shift} z x c v b n m , . / {shift}',
+    '.com @ {space}'
+  ],
+  'shift': [
+    '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
+    'Q W E R T Y U I O P { } |',
+    '{lock} A S D F G H J K L : " {enter}',
+    '{shift} Z X C V B N M < > ? {shift}',
+    '.com @ {space}'
+  ]
+}
+});
+
+function onChange(input) { document.querySelector(".input").value = input; }
+function onKeyPress(button) {  if (button === "{shift}" || button === "{lock}") handleShift(); }
+function handleShift() {
+  let currentLayout = myKeyboard.options.layoutName;
+  let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+  myKeyboard.setOptions({
+    layoutName: shiftToggle
+  });
+}
+        </script>
+
+    </body>
+</html>
