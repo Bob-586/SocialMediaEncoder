@@ -48,7 +48,7 @@ if (screen.width < 1080) {
         <legend>Message to Encode/Decode Message</legend>    
             <a id="copybtn" class='clipboard' title='Copy'></a>
             <div style="float: right;" class="nomobile">
-                <img src="./dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" title="License: LGPLv3 Free as in Freedom" />
+                <img src="./dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" />
                 <br>
                 <a href="https://github.com/Bob-586/SocialMediaEncoder" id="dload" target="_blank"><img src="./images/dload.svg" class="dload" alt="Download your copy of this project here." title="Download your copy of this project here.">Add this code/project to your own site!</a> PHP7-required
                 <br>
@@ -74,10 +74,10 @@ if (screen.width < 1080) {
             
         <label for="mode">Encoding Method</label>
         <select id="mode">
-            <option value="xor">Weak</option>
-            <!--<option value="shuffle">Not Secure</option>-->
-            <option value="des">Somewhat Secure</option>
-            <option value="aes">Secure</option>
+            <option value="xor">Normal</option>
+            <option value="shuffle">Not Secure - Light</option>
+            <option value="des">DES more Secure - Boated</option>
+            <option value="aes">AES overly Secure - Way Boated</option>
         </select>
         
         <button onclick="btn_enc(); return false;">Encode</button> &nbsp; &nbsp; &nbsp;
