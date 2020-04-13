@@ -21,6 +21,19 @@
     </head>
     <body>
         <?php
+function file_contains_php(string $file): bool {
+    $file_handle = fopen($file, "r");
+    while (!feof($file_handle)) {
+      $line = fgets($file_handle);
+      $pos = strpos($line, '<?php');
+      if ($pos !== false) {
+        return true;
+      }
+    }
+    fclose($file_handle);
+    return false;
+  }        
+        
         if ($_POST['upload']) {
             $target_dir = "uploads/";
             if (! is_dir($target_dir)) {
@@ -43,16 +56,21 @@
                 exit;
             }
             // Allow certain file formats
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                 echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                 unlink($target_file);
                 exit;
             }
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                if (file_contains_php($target_file)) {
+                    echo "PHP Attack!";
+                    unlink($target_file); // Delete this Dangerious file
+                    exit;
+                }
                 require __DIR__ . "/vendor/autoload.php";
                 $qrcode = new \Zxing\QrReader($target_file);
                 $text = $qrcode->text();        
-                unlink($target_file);    
+                unlink($target_file); // Remove if you want to keep records of mesages  
             } else {
                 echo "Sorry, unable to upload";
                 exit;
