@@ -45,7 +45,7 @@ function file_contains_php(string $file): bool {
                 echo "Uplevel attack!";
                 exit;
             } 
-            if ($_FILES["fileToUpload"]["size"] > 800000) {
+            if ($_FILES["fileToUpload"]["size"] > 900000) {
                 echo "Sorry, your file is too large.";
                 exit;
             }
@@ -87,12 +87,24 @@ function file_contains_php(string $file): bool {
         ?>
         <form method="POST" enctype="multipart/form-data">
             <label for="fileToUpload">Select Encoded image to upload:</label>
-            <input type="file" name="fileToUpload" id="fileToUpload"><br><br>
+            <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*"><br><br>
             <label for="pwd">Group Password (leave, blank, if none)</label>
             <input type="password" name="pwd" /><br><br>
             <label for="upload">Start upload</label>
             <input type="submit" value="Upload" name="upload" id="upload" />
-        </form>    
+        </form>
+        
+        <script type="text/javascript">
+var uploadField = document.getElementById("fileToUpload");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 900000){
+       alert("File is too big!");
+       this.value = "";
+    };
+};        
+        </script>
+        
         <?php
         } 
         ?>
