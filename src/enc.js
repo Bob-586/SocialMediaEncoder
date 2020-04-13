@@ -25,7 +25,9 @@ function Base64DecodeUrl(str){
 function search_words(mode, key, pass, ds) {
     var bad = was_found(words['banned'], key);
     if (bad !== false) {
-        throw "Bad Man";
+        var grr = "You are a very Bad Man, I shall report you!";
+      //  alert(grr);
+        throw grr;
     }
     for(p=0; p < search.length; p++) {
         var sw = search[p];
@@ -102,23 +104,26 @@ function unhideme(mode, data, key) {
 }
 
 function btn_enc() {
-   var mode = document.getElementById('mode').value; 
-   var text = document.getElementById('enc').value;
-   var pwd = document.getElementById('pwd').value;
-   var ret = do_enc(mode, text, pwd);
-   var beef = ret.beef;
-   var main = ret.main;
-   
-   var order = main.order;
-   var ds = main.ds;
-   var mode = main.mode;
-   
-   var b = { order: order, ds: ds, mode:mode };
-   var a = Object.assign({}, b, beef);
-//   console.log(a);
-   var secret = btoa(JSON.stringify(a)); 
-   document.getElementById('enc').value = secret;
-   
+   try { 
+        var mode = document.getElementById('mode').value; 
+        var text = document.getElementById('enc').value;
+        var pwd = document.getElementById('pwd').value;
+        var ret = do_enc(mode, text, pwd);
+        var beef = ret.beef;
+        var main = ret.main;
+
+        var order = main.order;
+        var ds = main.ds;
+        var mode = main.mode;
+
+        var b = { order: order, ds: ds, mode:mode };
+        var a = Object.assign({}, b, beef);
+        //   console.log(a);
+        var secret = btoa(JSON.stringify(a)); 
+        document.getElementById('enc').value = secret;
+   } catch (err) {
+     console.warn(err.message);
+   }
    var element =  document.getElementById('make');
    if (typeof(element) != 'undefined' && element != null) {
        element.disabled = false;
@@ -178,10 +183,13 @@ function do_enc(mode, text, pwd) {
 }
 
 function btn_dec() {
-   var text = document.getElementById('enc').value;
-   var pwd = document.getElementById('pwd').value; 
-   document.getElementById('enc').value = do_dec(text, pwd);
-   
+   try {  
+     var text = document.getElementById('enc').value;
+     var pwd = document.getElementById('pwd').value; 
+     document.getElementById('enc').value = do_dec(text, pwd);
+   } catch (err) {
+     console.warn(err.message);
+   }
    var element =  document.getElementById('make');
    if (typeof(element) != 'undefined' && element != null) {
        element.disabled = true;

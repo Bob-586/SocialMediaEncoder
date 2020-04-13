@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Social Media Encoder</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="./dist/all.min.js" defer></script>
+        <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('main').style.visibility = "visible";    
+});         
+        </script>
+    </head>
+    <body>
+       <form method="POST" action="image_encode.php">
+            
+        <section>
+        <fieldset>
+        <legend>Message to Encode/Decode Message</legend>    
+            <textarea id="enc" name="enc" rows="4" cols="30" class="input" placeholder="Enter Message Here:"></textarea>
+            <br>
+            <input type="password" id="pwd" /> Password
+        </fieldset>
+        </section>
+    <div id="main" style="visibility: hidden;">
+        <section>
+        <fieldset>
+        <legend>Encode a Message</legend>    
+            
+        <label for="mode">Encoding Method</label>
+        <select id="mode">
+            <option value="xor">Weak</option>
+            <!--<option value="shuffle">Not Secure</option>-->
+            <option value="des">Somewhat Secure</option>
+            <option value="aes">Secure</option>
+        </select>
+        <br><br>
+        <button onclick="btn_enc(); return false;">Encode</button> &nbsp; &nbsp; &nbsp;
+
+        <button type="submit" id="make" disabled>Make Image</button>
+        
+        </fieldset>
+        </section>
+            
+       </form>
+        
+        <section>
+        <fieldset>
+        <legend>Decode a Message</legend>
+        
+        <button onclick="btn_dec(); return false;">Decode</button> <br><br>
+        <a href="image_decoder.php" class="upload">Upload Encoded Image to Decode</a>
+        
+        </fieldset>
+        </section>
+    </div>
+        <footer>
+            <br>
+                <a href="https://github.com/Bob-586/SocialMediaEncoder" target="_blank">Please, Download your copy of this project here.</a>
+                <br>
+                <img src="./dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" title="License: LGPLv3 Free as in Freedom" />
+        </footer>
+        
+    </body>
+</html>
