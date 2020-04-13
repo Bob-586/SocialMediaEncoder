@@ -74,8 +74,8 @@ if (screen.width < 1080) {
             
         <label for="mode">Encoding Method</label>
         <select id="mode">
-            <option value="xor">Normal</option>
-            <option value="shuffle">Not Secure - Light</option>
+            <option value="xor">XOR Normal - Light</option>
+            <option value="shuffle">No Security - Lightest</option>
             <option value="des">DES more Secure - Boated</option>
             <option value="aes">AES overly Secure - Way Boated</option>
         </select>
@@ -113,14 +113,14 @@ let myKeyboard = new Keyboard({
     'q w e r t y u i o p [ ] \\',
     '{lock} a s d f g h j k l ; \' {enter}',
     '{shift} z x c v b n m , . / {shift}',
-    '.com @ {space}'
+    'https:// .com @ {space}'
   ],
   'shift': [
     '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
     'Q W E R T Y U I O P { } |',
     '{lock} A S D F G H J K L : " {enter}',
     '{shift} Z X C V B N M < > ? {shift}',
-    '.com @ {space}'
+    'http:// .com @ {space}'
   ]
 }
 });
