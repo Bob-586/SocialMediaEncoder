@@ -1,0 +1,55 @@
+Lets call this this Social Media Encoder V1.0 !
+
+Please download me, and keep adding on to me, it the Open Source way.
+Please do that, so my bandwidth does not get crazy as well ;-)
+
+Enjoy:
+
+Here is, sort of, how this all works:
+
+Modes of encryption: XOR-Password (weak), DES (some what secure), 
+    - AES (a little more secure). NOTE: every word is encrypted with this method,
+    so it is less secure compared to if the whole stream was encoded in one 
+    go/block. You can change this behavior via enc.js file to break 
+    compatibility with this version of course, but maybe that's the goal. 
+
+A long Date Stamp is added as a key, if a password is supplied it is used 
+with this time stamp.
+
+Every word, is added to an array of words by breaking on spaces.
+Then the array removes duplicate words, then sorts in reverse order.
+
+A words file is used to encode commonly used words into a number, so it skips 
+being added to the unique words array and that way it does not need to be in
+the output of the encoded message...kind of... If you modify words.js file, 
+you'll break compatibility with this version of course, but maybe 
+that's the goal. 
+
+The Date/Time Stamp is added as an Object to JSON, then its BASE64 encoded.
+Along, with the order in which words were said done using numbers and 
+words file array name if a common word. This meta-data is added, such as 
+mode of encoding method as well, so users do not need to know that.
+
+You can use the cypher text in an email, social platform that allows a lot lot
+of charters to be used. NOT twitter. 
+
+If you feel up to this challenge, you could make a web site that stores the 
+cypher text in a database, and does a small URL to the message with the 
+decoder JavaScript... all you would need to do is include the all.min.js, then
+have language of your choice, PHP. Do Database of your choice, and do an SQL 
+Select, then read the output to my JavaScript via do_dec(text, pwd) function. 
+I'd love that, as a link could be stated in your image or message in the clear
+and would be way easier for the end users!
+
+--------------------------------------------------------------
+If you modify the JavaScript files, run gulp.
+If the vendor files are too old, run composer.
+--------------------------------------------------------------
+
+If you have your own site, please use this project and change the image that is
+downloaded called sample.png to reflect your sites URL and brand/humor/meme.
+
+For the image Steganography to work requires an image, any valid image. 
+
+A file called make_sample.php can be used to add text to the sample image, or
+just use GIMP or Adobe Photoshop, etc... to do that.

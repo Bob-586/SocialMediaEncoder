@@ -1,7 +1,7 @@
 /**
  * @author Robert Strutts
  * @copyright 2020 LGPL-v3.0
- * 
+ * @version 1.0
  */
 
 
@@ -125,29 +125,6 @@ function btn_enc() {
    }
 }
 
-function link_enc() {
-   var mode = document.getElementById('mode').value; 
-   var text = document.getElementById('enc').value;
-   var pwd = document.getElementById('pwd').value;
-   var ret = do_enc(mode, text, pwd);
-   
-   var beef = ret.beef;
-   var main = ret.main;
-   
-   var order = main.order;
-   var ds = main.ds;
-   var mode = main.mode;
-   
-   var secret = "\?text=" + Base64EncodeUrl(btoa(JSON.stringify(beef)));
-   secret += "&parts="+Base64EncodeUrl(btoa(JSON.stringify(order)));
-   secret += "&ds="+Base64EncodeUrl(btoa(JSON.stringify(ds)));
-   secret += "&mode="+Base64EncodeUrl(btoa(JSON.stringify(mode)));
-   if (pwd !== '') {
-       secret += "&was=true";
-   }
-   document.getElementById('enc').value = secret;
-}
-
 function do_enc(mode, text, pwd) {
    var d = new Date();
    var ds = d.toString();  
@@ -219,25 +196,6 @@ function do_dec(text, pwd) {
    var ds = j['ds'];
    var mode = j['mode'];
    
-   var ret = '';
-   for(i=0; i < order.length; i++) {
-       var fn = order[i];
-       var found = fetch_word(mode, fn, pwd, ds);
-       if (found !== false) {
-           ret += found + " ";
-           continue;
-       } 
-       var n = order[i].n; 
-       ret += unhideme(mode, j[n], pwd + ds);
-   }
-   return ret;  
-}
-
-function url_dec(text, pwd, order, ds, mode) {
-   var j = JSON.parse(atob(Base64DecodeUrl(text)));
-   order = JSON.parse(atob(Base64DecodeUrl(order)));
-   ds = JSON.parse(atob(Base64DecodeUrl(ds)));
-   mode = JSON.parse(atob(Base64DecodeUrl(mode)));
    var ret = '';
    for(i=0; i < order.length; i++) {
        var fn = order[i];

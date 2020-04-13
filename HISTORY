@@ -2,3 +2,17 @@ Removed QR support was not useful, message sizes exceeded QRi support.
 Was going to use https://nuintun.github.io/qrcode/examples/index.html however same issue as QR too limiting.
 
 Removed QR decoder installed via: composer require khanamiryan/qrcode-detector-decoder
+
+Removed GET data make link as limits of $_GET
+
+Added image Steganography to vendor PHP Library, as unable to hit any size limits, yet...
+  -  Used a lot of Lorem Ipsum, worked!
+  -  installed via kzykhys/steganography composer
+
+Crypto supplied via CryptoJS v3.1.2 from: code.google.com/p/crypto-js 
+  -  (c) 2009-2013 by Jeff Mott. All rights reserved. code.google.com/p/crypto-js/wiki/License
+
+XORCipher supplied by Devin Weaver - Public License, Version 2, as published by Sam Hocevar.
+
+Added simple-keyboard v2.28.65 - via https://github.com/hodgef/simple-keyboard
+  -  Copyright (c) Francisco Hodge (https://github.com/hodgef) under MIT license.
