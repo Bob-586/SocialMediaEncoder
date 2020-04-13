@@ -21,6 +21,9 @@
     </head>
     <body>
         <?php
+        
+        $pwd = $_POST['pwd'] ?? '';
+        
 function file_contains_php(string $file): bool {
     $file_handle = fopen($file, "r");
     while (!feof($file_handle)) {
