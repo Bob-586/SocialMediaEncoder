@@ -1,7 +1,7 @@
 /**
  * @author Robert Strutts
  * @copyright 2020 LGPL-v3.0
- * @version 1.0
+ * @version 1.1
  */
 
 
@@ -11,15 +11,12 @@ Array.prototype.unique = function() {
   });
 };
 
-function Base64EncodeUrl(str){
-    return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
-}
-
-function Base64DecodeUrl(str){
-    var eq = '=';
-    var l = str.length;
-    str = str + eq.repeat(3 - ( 3 + l ) %4 );
-    return str.replace(/-/g, '+').replace(/_/g, '/');
+function rnd_hex_gen() {
+    var min = 1001;
+    var max = 999999999;
+    var yourNumber = Math.floor(Math.random()*(max-min+1)+min);
+    hexString = yourNumber.toString(16);
+    return hexString;
 }
 
 function search_words(mode, key, pass, ds) {
@@ -111,13 +108,15 @@ function btn_enc() {
         var ret = do_enc(mode, text, pwd);
         var beef = ret.beef;
         var main = ret.main;
+        
+        var random_hex_key = rnd_hex_gen();
+        var pork = hideme(1, JSON.stringify(beef), random_hex_key + pwd);
 
         var order = main.order;
         var ds = main.ds;
         var mode = main.mode;
 
-        var b = { order: order, ds: ds, mode:mode };
-        var a = Object.assign({}, b, beef);
+        var a = { order: order, ds: ds, mode:mode, beef: pork, hk: random_hex_key, v:"1.1" };
         //   console.log(a);
         var secret = btoa(JSON.stringify(a)); 
         document.getElementById('enc').value = secret;
@@ -199,6 +198,18 @@ function btn_dec() {
 function do_dec(text, pwd) {
    var s = atob(text);
    var j = JSON.parse(s);
+   
+   if (j.hasOwnProperty('v')) {
+       var v = j['v'];
+   } else {
+       var v = "1";
+   }
+   
+   if (v === "1.1") {
+       var beef = j['beef'];
+       var hk = j['hk'];
+       var pork = JSON.parse(unhideme(1, beef, hk + pwd));
+   }
 
    var order = j['order'];
    var ds = j['ds'];
@@ -212,8 +223,12 @@ function do_dec(text, pwd) {
            ret += found + " ";
            continue;
        } 
-       var n = order[i].n; 
-       ret += unhideme(mode, j[n], pwd + ds);
+       var n = order[i].n;
+       if (v === "1.1") {
+           ret += unhideme(mode, pork[n], pwd + ds);
+       } else {
+           ret += unhideme(mode, j[n], pwd + ds);
+       }
    }
    return ret;  
 }

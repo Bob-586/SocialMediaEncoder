@@ -1,4 +1,4 @@
-Lets call this this Social Media Encoder V1.0 !
+Lets call this this Social Media Encoder V1.1 !
 
 Please download me, and keep adding on to me, it the Open Source way.
 Please do that, so my bandwidth does not get crazy as well ;-)
@@ -29,6 +29,8 @@ The Date/Time Stamp is added as an Object to JSON, then its BASE64 encoded.
 Along, with the order in which words were said done using numbers and 
 words file array name if a common word. This meta-data is added, such as 
 mode of encoding method as well, so users do not need to know that.
+
+Now, the JSON data uses AES with a random HEX key, as well as custom encoder per word.
 
 You can use the cypher text in an email, social platform that allows a lot lot
 of charters to be used. NOT twitter. 

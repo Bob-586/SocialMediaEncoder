@@ -18,9 +18,11 @@ what is good these days. VPN, maybe??
 
 - [x] Use image Steganography
 - [x] Encryption uses XOR, DES, or AES
-- [ ] Encrypt whole JSON stream instead of individual words used
+- [x] Encrypt JSON with AES, plus of individual words used custom encoder method
 - [ ] Make links to decode message via Database and short URL
 - [x] Easy Minify all JavaScript with gulp
 - [x] Requires PHP version 7.x
 - [x] Added LGPLv3 logo
 - [x] Change the image sample.png to re-brand with your own site/humor/meme
+- [x] Added Upload File size limit of 900KB, made accept file type images
+- [x] Made simpler mobile ready page
