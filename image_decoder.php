@@ -45,7 +45,7 @@ function file_contains_php(string $file): bool {
                 echo "Uplevel attack!";
                 exit;
             } 
-            if ($_FILES["fileToUpload"]["size"] > 900000) {
+            if ($_FILES["fileToUpload"]["size"] > 2000000) {
                 echo "Sorry, your file is too large.";
                 exit;
             }
@@ -65,9 +65,15 @@ function file_contains_php(string $file): bool {
                     unlink($target_file); // Delete this Dangerious file
                     exit;
                 }
-                require __DIR__ . '/vendor/autoload.php';
-                $processor = new \KzykHys\Steganography\Processor();
-                $text = $processor->decode($target_file);       
+                
+                try {
+                    require __DIR__ . '/vendor/autoload.php';
+                    $processor = new \KzykHys\Steganography\Processor();
+                    $text = $processor->decode($target_file);
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                }
+                    
                 unlink($target_file); // Remove if you want to keep records of messages  
             } else {
                 echo "Sorry, unable to upload";
@@ -98,7 +104,7 @@ function file_contains_php(string $file): bool {
 var uploadField = document.getElementById("fileToUpload");
 
 uploadField.onchange = function() {
-    if(this.files[0].size > 900000){
+    if(this.files[0].size > 2000000){
        alert("File is too big!");
        this.value = "";
     };
