@@ -52,13 +52,11 @@ function file_contains_php(string $file): bool {
             $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
             if ($check === false) {
                 echo "Upload not an Image!";
-                unlink($target_file);
                 exit;
             }
             // Allow certain file formats
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                 echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                unlink($target_file);
                 exit;
             }
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
