@@ -26,7 +26,7 @@
     display: inline-block;
     height: 20px;
     padding: 0 1em;
-    width: 144px;       
+    width: 222px;       
     text-decoration: none;       
 }
 .simple-keyboard { max-width: 850px; }
@@ -35,7 +35,7 @@
         <script type="text/javascript" src="./dist/all.min.js"></script>
     </head>
     <body>
-        <form method="POST" action="qrenc3.php">
+        <form method="POST" action="image_encode.php">
             
         <section>
         <fieldset>
@@ -68,7 +68,8 @@
         
         <button onclick="btn_enc(); return false;">Encode</button> &nbsp; &nbsp; &nbsp;
         <!--<button onclick="link_enc()">Make Link</button>-->
-        <button type="submit" id="make" disabled>Make QR</button>
+        <button type="submit" id="make" disabled>Make Image</button>
+        
         </fieldset>
         </section>
             
@@ -79,7 +80,7 @@
         <legend>Decode a Message</legend>
         
         <button onclick="btn_dec()">Decode</button> &nbsp; &nbsp; &nbsp;
-        <a href="qr.php" class="upload">Upload QR to Decode</a>
+        <a href="image_decoder.php" class="upload">Upload Encoded Image to Decode</a>
         
         </fieldset>
         </section>

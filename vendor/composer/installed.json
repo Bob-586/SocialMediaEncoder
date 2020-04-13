@@ -1,34 +1,77 @@
 [
     {
-        "name": "khanamiryan/qrcode-detector-decoder",
-        "version": "1.0.2",
-        "version_normalized": "1.0.2.0",
+        "name": "kzykhys/steganography",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/khanamiryan/php-qrcode-detector-decoder.git",
-            "reference": "a75482d3bc804e3f6702332bfda6cccbb0dfaa76"
+            "url": "https://github.com/kzykhys/Steganography.git",
+            "reference": "d60fdf365679a1ed5dcca6e3a4741df245c16bd6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/khanamiryan/php-qrcode-detector-decoder/zipball/a75482d3bc804e3f6702332bfda6cccbb0dfaa76",
-            "reference": "a75482d3bc804e3f6702332bfda6cccbb0dfaa76",
+            "url": "https://api.github.com/repos/kzykhys/Steganography/zipball/d60fdf365679a1ed5dcca6e3a4741df245c16bd6",
+            "reference": "d60fdf365679a1ed5dcca6e3a4741df245c16bd6",
             "shasum": ""
         },
         "require": {
-            "php": "^5.6|^7.0"
+            "symfony/options-resolver": "~2.3"
         },
-        "require-dev": {
-            "phpunit/phpunit": "^5.7"
-        },
-        "time": "2018-04-26T11:41:33+00:00",
+        "time": "2014-01-24T17:50:32+00:00",
         "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kazuyuki Hayashi",
+                "email": "hayashi@valnur.net"
+            }
+        ],
+        "description": "Simple implementation of Steganography (Hiding a hidden message within an image)",
+        "keywords": [
+            "steganography"
+        ]
+    },
+    {
+        "name": "symfony/options-resolver",
+        "version": "v2.8.52",
+        "version_normalized": "2.8.52.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/options-resolver.git",
+            "reference": "7aaab725bb58f0e18aa12c61bdadd4793ab4c32b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/options-resolver/zipball/7aaab725bb58f0e18aa12c61bdadd4793ab4c32b",
+            "reference": "7aaab725bb58f0e18aa12c61bdadd4793ab4c32b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "time": "2018-11-11T11:18:13+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Zxing\\": "lib/"
+                "Symfony\\Component\\OptionsResolver\\": ""
             },
-            "files": [
-                "lib/Common/customFunctions.php"
+            "exclude-from-classmap": [
+                "/Tests/"
             ]
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -37,18 +80,20 @@
         ],
         "authors": [
             {
-                "name": "Ashot Khanamiryan",
-                "email": "a.khanamiryan@gmail.com",
-                "homepage": "https://github.com/khanamiryan",
-                "role": "Developer"
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
-        "description": "QR code decoder / reader",
-        "homepage": "https://github.com/khanamiryan/php-qrcode-detector-decoder/",
+        "description": "Symfony OptionsResolver Component",
+        "homepage": "https://symfony.com",
         "keywords": [
-            "barcode",
-            "qr",
-            "zxing"
+            "config",
+            "configuration",
+            "options"
         ]
     }
 ]

@@ -1,0 +1,4 @@
+Removed QR support was not useful, message sizes exceeded QRi support.
+Was going to use https://nuintun.github.io/qrcode/examples/index.html however same issue as QR too limiting.
+
+Removed QR decoder installed via: composer require khanamiryan/qrcode-detector-decoder

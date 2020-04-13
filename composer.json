@@ -1,5 +1,5 @@
 {
     "require": {
-        "khanamiryan/qrcode-detector-decoder": "^1.0"
+        "kzykhys/steganography": "dev-master"
     }
 }

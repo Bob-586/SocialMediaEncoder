@@ -4,31 +4,32 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita03aeafbf66a0f9aefa942362d580243
+class ComposerStaticInit35f6a3b570f6725bb5b619e494d80cd1
 {
-    public static $files = array (
-        'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
+        'S' => 
         array (
-            'Zxing\\' => 6,
+            'Symfony\\Component\\OptionsResolver\\' => 34,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Zxing\\' => 
+        'Symfony\\Component\\OptionsResolver\\' => 
         array (
-            0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
+            0 => __DIR__ . '/..' . '/symfony/options-resolver',
         ),
+    );
+
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/..' . '/kzykhys/steganography/src',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita03aeafbf66a0f9aefa942362d580243::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita03aeafbf66a0f9aefa942362d580243::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit35f6a3b570f6725bb5b619e494d80cd1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit35f6a3b570f6725bb5b619e494d80cd1::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit35f6a3b570f6725bb5b619e494d80cd1::$fallbackDirsPsr0;
 
         }, null, ClassLoader::class);
     }
