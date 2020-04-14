@@ -16,22 +16,21 @@
     background-position: 0px 0px;
     margin: 0 0 0 10px;    
 }
-.dload { height: 32px; width: 32px; }
-.upload {
-    border-bottom: 1px solid #777777;
-    border-left: 1px solid #000000;
-    border-right: 1px solid #333333;
-    border-top: 1px solid #000000;
-    color: red;
-    background-color: lightgray;
-    display: inline-block;
-    height: 20px;
-    padding: 0 1em;
-    width: 222px;       
-    text-decoration: none;       
-}
+.dload { position: relative; top: 10px; height: 32px; width: 32px; }
 .simple-keyboard { max-width: 850px; }
+.rlink {
+  background-color: #e6f3f7; 
+  border-radius: 12px;
+  border: none;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}         
         </style>
+        <link rel="stylesheet" href="./dist/uikit.min.css">
         <link rel="stylesheet" href="./dist/vkb.css">
         <script type="text/javascript">
 if (screen.width < 1080) {
@@ -50,7 +49,7 @@ if (screen.width < 1080) {
             <div style="float: right;" class="nomobile">
                 <img src="./dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" />
                 <br>
-                <a href="https://github.com/Bob-586/SocialMediaEncoder" id="dload" target="_blank"><img src="./images/dload.svg" class="dload" alt="Download your copy of this project here." title="Download your copy of this project here.">Add this code/project to your own site!</a> PHP7-required
+                <a href="https://github.com/Bob-586/SocialMediaEncoder" id="dload" class="rlink" target="_blank"><img src="./images/dload.svg" class="dload" alt="Download your copy of this project here." title="Download your copy of this project here.">Add this code/project to your own site! * PHP7-required</a>
                 <br>
                 <br>
                 <a style="color: darkred;" title="This project is to bypass big techs Automatic censorship efforts, only! NOTE:[[It does not keep any secrets!!]] For that use PGP, GNU Privacy Guard, or other programs with the output of this encoder. Please be safe, use methods to hide your identity. Post only anonymously, from random locations if you are concerned about your physical safety. Use some method to hide your where about's, like TOR or better....I'm not sure what is good these days. VPN, maybe?? Ask an expert in the field of security.">FAQ's README 1st</a>
@@ -80,9 +79,9 @@ if (screen.width < 1080) {
             <option value="aes">AES overly Secure - Way Boated</option>
         </select>
         
-        <button onclick="btn_enc(); return false;">Encode</button> &nbsp; &nbsp; &nbsp;
+        <button onclick="btn_enc(); return false;" class="uk-button uk-button-main uk-button-small">Encode</button> &nbsp; &nbsp; &nbsp;
 
-        <button type="submit" id="make" disabled>Make Image</button>
+        <button type="submit" id="make" disabled class="uk-button uk-button-secondary uk-button-small">Make Image</button>
         
         </fieldset>
         </section>
@@ -93,8 +92,8 @@ if (screen.width < 1080) {
         <fieldset>
         <legend>Decode a Message</legend>
         
-        <button onclick="btn_dec(); return false;">Decode</button> &nbsp; &nbsp; &nbsp;
-        <a href="image_decoder.php" class="upload">Upload Encoded Image to Decode</a>
+        <button onclick="btn_dec(); return false;" class="uk-button uk-button-main uk-button-small">Decode</button> &nbsp; &nbsp; &nbsp;
+        <a href="image_decoder.php" class="uk-button uk-button-secondary uk-button-small">Upload Encoded Image to Decode</a>
         
         </fieldset>
         </section>

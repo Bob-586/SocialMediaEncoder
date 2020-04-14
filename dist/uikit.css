@@ -1,0 +1,246 @@
+/*! UIkit 3.4.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+
+.uk-button {
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  border: none;
+  /* 3 */
+  overflow: visible;
+  /* 4 */
+  font: inherit;
+  color: inherit;
+  /* 5 */
+  text-transform: none;
+  /* 6 */
+  -webkit-appearance: none;
+  border-radius: 0;
+  /* 7 */
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0 30px;
+  vertical-align: middle;
+  font-size: 0.875rem;
+  /* 8 */
+  line-height: 38px;
+  /* 9 */
+  text-align: center;
+  /* 10 */
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.1s ease-in-out;
+  transition-property: color, background-color, border-color;
+}
+.uk-button:not(:disabled) {
+  cursor: pointer;
+}
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+.uk-button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/* Hover */
+.uk-button:hover {
+  /* 9 */
+  text-decoration: none;
+}
+/* Focus */
+.uk-button:focus {
+  outline: none;
+}
+/* OnClick + Active */
+/* Style modifiers
+ ========================================================================== */
+/*
+ * Default
+ */
+.uk-button-default {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #e5e5e5;
+}
+/* Hover + Focus */
+.uk-button-default:hover,
+.uk-button-default:focus {
+  background-color: transparent;
+  color: #333;
+  border-color: #b2b2b2;
+}
+/* OnClick + Active */
+.uk-button-default:active,
+.uk-button-default.uk-active {
+  background-color: transparent;
+  color: #333;
+  border-color: #999999;
+}
+/*
+ * Primary
+ */
+.uk-button-primary {
+  background-color: #1e87f0;
+  color: #fff;
+  border: 1px solid transparent;
+}
+/* Hover + Focus */
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+  background-color: #0f7ae5;
+  color: #fff;
+}
+/* OnClick + Active */
+.uk-button-primary:active,
+.uk-button-primary.uk-active {
+  background-color: #0e6dcd;
+  color: #fff;
+}
+/*
+ * Secondary
+ */
+.uk-button-secondary {
+  background-color: #00AF00;
+  color: #fff;
+  border: 1px solid transparent;
+}
+/* Hover + Focus */
+.uk-button-secondary:hover,
+.uk-button-secondary:focus {
+  background-color: #00FFAA;
+  color: #fff;
+}
+/* OnClick + Active */
+.uk-button-secondary:active,
+.uk-button-secondary.uk-active {
+  background-color: #00FF00;
+  color: #fff;
+}
+/*
+ * Main
+ */
+.uk-button-main {
+  background-color: #00AAFF;
+  color: #fff;
+  border: 1px solid transparent;
+}
+/* Hover + Focus */
+.uk-button-main:hover,
+.uk-button-main:focus {
+  background-color: #00D5FF;
+  color: #fff;
+}
+/* OnClick + Active */
+.uk-button-main:active,
+.uk-button-main.uk-active {
+  background-color: #00FFFF;
+  color: #fff;
+}
+/*
+ * Danger
+ */
+.uk-button-danger {
+  background-color: #f0506e;
+  color: #fff;
+  border: 1px solid transparent;
+}
+/* Hover + Focus */
+.uk-button-danger:hover,
+.uk-button-danger:focus {
+  background-color: #ee395b;
+  color: #fff;
+}
+/* OnClick + Active */
+.uk-button-danger:active,
+.uk-button-danger.uk-active {
+  background-color: #ec2147;
+  color: #fff;
+}
+/*
+ * Disabled
+ * The same for all style modifiers
+ */
+.uk-button-default:disabled,
+.uk-button-primary:disabled,
+.uk-button-secondary:disabled,
+.uk-button-danger:disabled {
+  background-color: transparent;
+  color: #999;
+  border-color: #e5e5e5;
+}
+/* Size modifiers
+ ========================================================================== */
+.uk-button-small {
+  padding: 0 15px;
+  line-height: 28px;
+  font-size: 0.875rem;
+}
+.uk-button-large {
+  padding: 0 40px;
+  line-height: 53px;
+  font-size: 0.875rem;
+}
+/* Text modifiers
+ ========================================================================== */
+/*
+ * Text
+ * 1. Reset
+ * 2. Style
+ */
+.uk-button-text {
+  /* 1 */
+  padding: 0;
+  line-height: 1.5;
+  background: none;
+  /* 2 */
+  color: #333;
+  position: relative;
+}
+.uk-button-text::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  border-bottom: 1px solid #333;
+  transition: right 0.3s ease-out;
+}
+/* Hover + Focus */
+.uk-button-text:hover,
+.uk-button-text:focus {
+  color: #333;
+}
+.uk-button-text:hover::before,
+.uk-button-text:focus::before {
+  right: 0;
+}
+/* Disabled */
+.uk-button-text:disabled {
+  color: #999;
+}
+.uk-button-text:disabled::before {
+  display: none;
+}
+/*
+ * Link
+ * 1. Reset
+ * 2. Style
+ */
+.uk-button-link {
+  /* 1 */
+  padding: 0;
+  line-height: 1.5;
+  background: none;
+  /* 2 */
+  color: #1e87f0;
+}
+/* Hover + Focus */
+.uk-button-link:hover,
+.uk-button-link:focus {
+  color: #0f6ecd;
+  text-decoration: underline;
+}
+/* Disabled */
+.uk-button-link:disabled {
+  color: #999;
+  text-decoration: none;
+}

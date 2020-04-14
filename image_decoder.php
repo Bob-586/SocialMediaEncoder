@@ -17,6 +17,7 @@
     margin: 0 0 0 10px;    
 }            
         </style>
+        <link rel="stylesheet" href="./dist/uikit.css">
         <script type="text/javascript" src="./dist/all.min.js"></script>
     </head>
     <body>
@@ -95,12 +96,24 @@ function file_contains_php(string $file): bool {
         } else {   
         ?>
         <form method="POST" enctype="multipart/form-data">
+            
+        <section>
+        <fieldset>
+        <legend>Upload Image to Decode</legend>
             <label for="fileToUpload">Select Encoded image to upload:</label>
-            <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*"><br><br>
-            <label for="pwd">Group Password (leave, blank, if none)</label>
-            <input type="password" name="pwd" /><br><br>
-            <label for="upload">Start upload</label>
-            <input type="submit" value="Upload" name="upload" id="upload" />
+            <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
+            <input type="submit" value="Start Up-load" name="upload" id="upload" class="uk-button uk-button-secondary uk-button-small" />
+        </fieldset>
+        </section>    
+            
+        <section>
+        <fieldset>
+        <legend>Group Password</legend>   
+            <label for="pwd">If none, leave blank.</label>
+            <input type="password" name="pwd" />
+        </fieldset>
+        </section>        
+           
         </form>
         
         <script type="text/javascript">
@@ -119,7 +132,7 @@ uploadField.onchange = function() {
         ?>
     
         <hr>
-        <a href="index.html">Encode new message</a>    
+        <a href="index.html" class="uk-button uk-button-primary uk-button-large">Encode new message</a>    
         
     </body>
 </html>
