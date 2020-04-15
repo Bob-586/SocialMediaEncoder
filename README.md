@@ -1,4 +1,4 @@
-# Social Media Encoder
+# Social Media Encoder v1.2
 
 ## This project's aim is to BYPASS big techs *Automatic* _Censorship_ efforts, ONLY!
 
@@ -26,3 +26,4 @@ what is good these days. VPN, maybe??
 - [x] Change the image sample.png to re-brand with your own site/humor/meme
 - [x] Added Upload File size limit of 900KB, made accept file type images
 - [x] Made simpler mobile ready page
+- [x] Order stream now has extra encryption level of your choice
