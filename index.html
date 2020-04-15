@@ -58,27 +58,30 @@ if (screen.width < 1080) {
         <div>
             <label for="pwd">*(optional) Password for Group:</label>
             <input type="password" id="pwd" />
-            <p class="nomobile">
-                To have a good encode : please use all lowercase , do not add commas or periods next to a word , have a space so the word can be processed .
-                Use the Virtual Keyboard here, to avoid key stroke loggers!!
-            </p>
-            <div class="simple-keyboard"></div>
+            <button onclick="show_vkb(); return false;" id="btn-svkb">Show Virtual Keyboard, to avoid key stroke logging</button>
+            <div class="simple-keyboard" id="dvkb" style="display: none;"></div>
         </div>
         </fieldset>
         </section>
      <div id="main" style="visibility: hidden;">   
         <section>
         <fieldset>
-        <legend>Encode a Message</legend>    
+        <legend>Encode a Message, now will use AES on word stream additionally use the following</legend>    
             
-        <label for="mode">Encoding Method</label>
+        <label for="mode">Word Encode</label>
         <select id="mode">
             <option value="xor">XOR Normal - Light</option>
             <option value="shuffle">No Security - Lightest</option>
             <option value="des">DES more Secure - Boated</option>
             <option value="aes">AES overly Secure - Way Boated</option>
         </select>
-        
+        <label for="omode">Order Encode</label>
+        <select id="omode">
+            <option value="des">DES kind of Paranoid - Boated</option>
+<!--            <option value="xor">XOR Normal - Light</option>-->
+            <option value="shuffle">Not Paranoid- Lightest</option>
+            <option value="aes">AES very Paranoid - Way Boated</option>
+        </select>
         <button onclick="btn_enc(); return false;" class="uk-button uk-button-main uk-button-small">Encode</button> &nbsp; &nbsp; &nbsp;
 
         <button type="submit" id="make" disabled class="uk-button uk-button-secondary uk-button-small">Make Image</button>
@@ -145,6 +148,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }            
 });
+
+function show_vkb() {
+   document.getElementById('dvkb').style.display = "block";
+   document.getElementById('btn-svkb').style.display = "none";
+}
         </script>
 
     </body>

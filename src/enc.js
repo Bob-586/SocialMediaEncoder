@@ -1,7 +1,7 @@
 /**
  * @author Robert Strutts
  * @copyright 2020 LGPL-v3.0
- * @version 1.1
+ * @version 1.2
  */
 
 
@@ -102,7 +102,16 @@ function unhideme(mode, data, key) {
 
 function btn_enc() {
    try { 
-        var mode = document.getElementById('mode').value; 
+        var mode = document.getElementById('mode').value;
+        var omode = document.getElementById('omode').value;
+        
+        switch(omode) {
+            case 'aes': omode = 1; break;
+            case 'des': omode = 2; break;
+            case 'xor': omode = 3; break;
+            default: omode = 4;
+        }
+        
         var text = document.getElementById('enc').value;
         var pwd = document.getElementById('pwd').value;
         var ret = do_enc(mode, text, pwd);
@@ -110,14 +119,21 @@ function btn_enc() {
         var main = ret.main;
         
         var random_hex_key = rnd_hex_gen();
+        var ok = rnd_hex_gen();
+        
         var pork = hideme(1, JSON.stringify(beef), random_hex_key + pwd);
 
-        var order = main.order;
+        var mo = main.order;
+        console.log(mo);
+        var order = hideme(omode, JSON.stringify(mo), ok + pwd);
+        
         var ds = main.ds;
         var mode = main.mode;
 
-        var a = { order: order, ds: ds, mode:mode, beef: pork, hk: random_hex_key, v:"1.1" };
-        //   console.log(a);
+        var a = { order: order, ds: ds, mode:mode, omode: omode, beef: pork, ok: ok, hk: random_hex_key, v:"1.2" };
+
+//        console.log(JSON.stringify(a));
+        
         var secret = btoa(JSON.stringify(a)); 
         document.getElementById('enc').value = secret;
    } catch (err) {
@@ -205,13 +221,21 @@ function do_dec(text, pwd) {
        var v = "1";
    }
    
-   if (v === "1.1") {
+   if (v === "1.1" || v === "1.2") {
        var beef = j['beef'];
        var hk = j['hk'];
        var pork = JSON.parse(unhideme(1, beef, hk + pwd));
    }
-
-   var order = j['order'];
+   
+   if (v === "1.2") {
+       var omode = j['omode'];
+       var ok = j['ok'];
+       var o = j['order'];
+       var order = JSON.parse(unhideme(omode, o, ok + pwd));
+   } else {
+       var order = j['order'];
+   }
+   
    var ds = j['ds'];
    var mode = j['mode'];
    
@@ -224,7 +248,7 @@ function do_dec(text, pwd) {
            continue;
        } 
        var n = order[i].n;
-       if (v === "1.1") {
+       if (v === "1.1" || v === "1.2") {
            ret += unhideme(mode, pork[n], pwd + ds);
        } else {
            ret += unhideme(mode, j[n], pwd + ds);
