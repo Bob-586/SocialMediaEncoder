@@ -18,7 +18,7 @@
 }            
         </style>
         <link rel="stylesheet" href="./dist/uikit.css">
-        <script type="text/javascript" src="./dist/all.min.js"></script>
+        <script type="text/javascript" src="./dist/all.min.js?v=1.2"></script>
     </head>
     <body>
         <?php
