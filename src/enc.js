@@ -124,7 +124,6 @@ function btn_enc() {
         var pork = hideme(1, JSON.stringify(beef), random_hex_key + pwd);
 
         var mo = main.order;
-        console.log(mo);
         var order = hideme(omode, JSON.stringify(mo), ok + pwd);
         
         var ds = main.ds;
