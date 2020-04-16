@@ -37,8 +37,8 @@ function file_contains_php(string $file): bool {
     fclose($file_handle);
     return false;
   }        
-        
-        if ($_POST['upload']) {
+        $upload = $_POST['upload'] ?? false;
+        if ($upload) {
             $target_dir = "uploads/";
             if (! is_dir($target_dir)) {
                 mkdir($target_dir);
@@ -71,8 +71,8 @@ function file_contains_php(string $file): bool {
                 }
                 
                 try {
-                    require __DIR__ . '/vendor/autoload.php';
-                    $processor = new \KzykHys\Steganography\Processor();
+                    require_once 'steganography.php';
+                    $processor = new \steganography();
                     $text = $processor->decode($target_file);
                 } catch (Exception $ex) {
                     echo $ex->getMessage();

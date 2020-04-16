@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
-
 try {
     $enc = $_POST['enc'] ?? false;
     $len = strlen($enc);
@@ -12,8 +10,10 @@ try {
         $image = "sample.png";
     }
     
-    $processor = new KzykHys\Steganography\Processor();
-    $image = $processor->encode($image, $enc); // jpg|png|gif
+    require_once 'steganography.php';
+    $processor = new \steganography();
+    $level = 9; // 9 = Best Compression
+    $image = $processor->encode($image, $enc, $level); // jpg|png|gif
     
     header('Content-Disposition: attachment; filename=fortune_cookie.png');
     header('Content-Type: application/octet-stream');
