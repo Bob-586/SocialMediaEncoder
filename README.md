@@ -28,3 +28,4 @@ what is good these days. VPN, maybe??
 - [x] Made simpler mobile ready page
 - [x] Order stream now has extra encryption level of your choice
 - [x] Bigger Dictionary for compression
+- [x] Added Image Quality control/compression

@@ -8,6 +8,7 @@ Removed GET data make link as limits of $_GET
 Added image Steganography to vendor PHP Library, as unable to hit any size limits, yet...
   -  Used a lot of Lorem Ipsum, worked!
   -  installed via kzykhys/steganography composer
+  -  Made whole vendor stuff into one script file in v1.3  
 
 Crypto supplied via CryptoJS v3.1.2 from: code.google.com/p/crypto-js 
   -  (c) 2009-2013 by Jeff Mott. All rights reserved. code.google.com/p/crypto-js/wiki/License
