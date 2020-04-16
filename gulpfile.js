@@ -1,6 +1,6 @@
 "use strict";
 
-const { src, dest, parallel, watch } = require('gulp');
+const { src, dest, series, parallel, watch } = require('gulp');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const lzmajs = require('gulp-lzmajs');
@@ -16,10 +16,10 @@ function js() {
     .on('error', console.error.bind(console));
 }
 
-function watch_js() {
+function watch_all() {
     watch('src/*.js', { events: 'all' }, js);
 }
 
 exports.js = js;
-exports.watch_js = watch_js;
-exports.default = parallel(js, watch_js);
+exports.watch = watch_all;
+exports.default = series( parallel(js), watch_all );

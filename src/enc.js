@@ -1,7 +1,7 @@
 /**
  * @author Robert Strutts
  * @copyright 2020 LGPL-v3.0
- * @version 1.2
+ * @version 1.3
  */
 
 
@@ -26,8 +26,12 @@ function search_words(mode, key, pass, ds) {
       //  alert(grr);
         throw grr;
     }
-    for(p=0; p < search.length; p++) {
-        var sw = search[p];
+    for(var skey in search_new) {
+        if (search_new.hasOwnProperty(skey)) {
+            var sw = search_new[skey];
+        } else {
+            continue;
+        }
         var found_at = was_found(words[sw], key);
         if (found_at !== false) {
             var data = {};
@@ -42,14 +46,18 @@ function search_words(mode, key, pass, ds) {
     return false;
 }
 
-function fetch_word(mode, input, pass, ds) {
+function fetch_word(search, mode, input, pass, ds) {
     if (input.hasOwnProperty('n')) {
         return false;
     }
-    for(f=0; f < search.length; f++) {
-        var sw = search[f];
-        if (input.hasOwnProperty(sw)) {
-            var w = input[sw];
+    for(var skey in search) {
+        if (search.hasOwnProperty(skey)) {
+            var sw = search[skey];
+        } else {
+            continue;
+        }
+        if (input.hasOwnProperty(skey)) {
+            var w = input[skey];
             if (pass === '') {
                 return words[sw][w];
             } 
@@ -129,7 +137,7 @@ function btn_enc() {
         var ds = main.ds;
         var mode = main.mode;
 
-        var a = { order: order, ds: ds, mode:mode, omode: omode, beef: pork, ok: ok, hk: random_hex_key, v:"1.2" };
+        var a = { order: order, ds: ds, mode:mode, omode: omode, beef: pork, ok: ok, hk: random_hex_key, v:"1.3" };
 
 //        console.log(JSON.stringify(a));
         
@@ -220,13 +228,13 @@ function do_dec(text, pwd) {
        var v = "1";
    }
    
-   if (v === "1.1" || v === "1.2") {
+   if (v !== "1") {
        var beef = j['beef'];
        var hk = j['hk'];
        var pork = JSON.parse(unhideme(1, beef, hk + pwd));
    }
    
-   if (v === "1.2") {
+   if (v === "1.2" || v === "1.3") {
        var omode = j['omode'];
        var ok = j['ok'];
        var o = j['order'];
@@ -235,19 +243,26 @@ function do_dec(text, pwd) {
        var order = j['order'];
    }
    
+   if (v !== "1.3") {
+       var search = search_old;
+   } else {
+       var search = search_new;
+   }
+   
+//   console.log(order);   
    var ds = j['ds'];
    var mode = j['mode'];
    
    var ret = '';
    for(i=0; i < order.length; i++) {
        var fn = order[i];
-       var found = fetch_word(mode, fn, pwd, ds);
+       var found = fetch_word(search, mode, fn, pwd, ds);
        if (found !== false) {
            ret += found + " ";
            continue;
        } 
        var n = order[i].n;
-       if (v === "1.1" || v === "1.2") {
+       if (v !== "1") {
            ret += unhideme(mode, pork[n], pwd + ds);
        } else {
            ret += unhideme(mode, j[n], pwd + ds);
