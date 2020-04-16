@@ -4,13 +4,14 @@
  * @version 1.3
  */
 
-
+// Remove Duplicates from an array
 Array.prototype.unique = function() {
   return this.filter(function (value, index, self) { 
     return self.indexOf(value) === index;
   });
 };
 
+// Make a Key as Password
 function rnd_hex_gen() {
     var min = 1001;
     var max = 999999999;
@@ -48,7 +49,7 @@ function search_words(mode, key, pass, ds) {
 
 function fetch_word(search, mode, input, pass, ds) {
     if (input.hasOwnProperty('n')) {
-        return false;
+        return false; // It was a custom Unique word, so bail as false
     }
     for(var skey in search) {
         if (search.hasOwnProperty(skey)) {
@@ -67,6 +68,7 @@ function fetch_word(search, mode, input, pass, ds) {
     }
 }
 
+// Check if key was found from array called data 
 function was_found(data, key) {
    for(z=0; z < data.length; z++) {
        var word = data[z];
@@ -146,6 +148,7 @@ function btn_enc() {
    } catch (err) {
      console.warn(err.message);
    }
+   // Enable make image button, now that we have cypher-text
    var element =  document.getElementById('make');
    if (typeof(element) != 'undefined' && element != null) {
        element.disabled = false;
@@ -162,43 +165,43 @@ function do_enc(mode, text, pwd) {
        default: mode = 4;
    }
    
-   var str = text.toString();
-   var clean = str.replace(/<[^>]*>/g, '');
-   var arr = clean.split(" ");
-   var u = arr.unique();
+   var str = text.toString(); // Cast to String
+   var clean = str.replace(/<[^>]*>/g, ''); // Strip HTML Tags
+   var arr = clean.split(" "); // Explode on spaces
+   var u = arr.unique(); // Remove duplicate words from text
    
    var my_arr = [];
    for(e=0; e < u.length; e++) {
        var sw_ans = search_words(mode, u[e], pwd, ds);
        if (sw_ans !== false) {
-           continue;
+           continue; // Skip words that exist in words.js file
        }
-       my_arr.push(u[e]);
+       my_arr.push(u[e]); // Array of only cumtom words not defined by words.js
    }
  
-   var sort = my_arr.sort(); 
-   var rev = sort.reverse();
+   var sort = my_arr.sort(); // Get in alphabetical order
+   var rev = sort.reverse(); // Do backwards, to make harder to guess
    
    var order = [];
    for(x=0; x < arr.length; x++) {
        var key = arr[x];
-       var sw_ans = search_words(mode, key, pwd, ds);
+       var sw_ans = search_words(mode, key, pwd, ds); // Get key + index from words.js
        if (sw_ans !== false) {
-           order.push(sw_ans);
+           order.push(sw_ans); // Save order on defined word from words.js
            continue;
        }
-       var ans = was_found(rev, key);
+       var ans = was_found(rev, key); // Get Position of your word
        if (ans === false) {
            
        } else {
-         order.push({ n: ans });  
+         order.push({ n: ans }); // Save order on your  
        }   
    }
    
    var a = { order: order, ds: ds, mode: mode };
-   var beef = {};
+   var beef = {}; // beef is the Unique Words not in words.js file
    for(i=0; i < rev.length; i++) {
-       beef[i] = hideme(mode, rev[i], pwd + ds);
+       beef[i] = hideme(mode, rev[i], pwd + ds); // save/encrypt your word as it's, now defined
    }
   
    return { main: a, beef: beef };
@@ -212,6 +215,7 @@ function btn_dec() {
    } catch (err) {
      console.warn(err.message);
    }
+   // Disable make image button, as we no longer have cypher-text to use
    var element =  document.getElementById('make');
    if (typeof(element) != 'undefined' && element != null) {
        element.disabled = true;
@@ -234,16 +238,16 @@ function do_dec(text, pwd) {
        var pork = JSON.parse(unhideme(1, beef, hk + pwd));
    }
    
-   if (v === "1.2" || v === "1.3") {
+   if (v === "1" || v === "1.1") {
+       var order = j['order'];
+   } else {
        var omode = j['omode'];
        var ok = j['ok'];
        var o = j['order'];
        var order = JSON.parse(unhideme(omode, o, ok + pwd));
-   } else {
-       var order = j['order'];
    }
-   
-   if (v !== "1.3") {
+   // Fetch words from words.js
+   if (v === "1" || v === "1.1" || v === "1.2") {
        var search = search_old;
    } else {
        var search = search_new;
@@ -255,13 +259,13 @@ function do_dec(text, pwd) {
    
    var ret = '';
    for(i=0; i < order.length; i++) {
-       var fn = order[i];
+       var fn = order[i]; // Get index of existing word from words.js
        var found = fetch_word(search, mode, fn, pwd, ds);
        if (found !== false) {
-           ret += found + " ";
+           ret += found + " "; // fetched word from words.js
            continue;
        } 
-       var n = order[i].n;
+       var n = order[i].n; // Get index of new word
        if (v !== "1") {
            ret += unhideme(mode, pork[n], pwd + ds);
        } else {
