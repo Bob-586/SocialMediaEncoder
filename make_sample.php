@@ -8,7 +8,7 @@ if (file_exists("sample.png")) {
 // Set the enviroment variable for GD
 putenv('GDFONTPATH=' . realpath('.'));
 
-$string1 = "https://RobertStrutts.com/me";
+$string1 = "RobertStrutts.com/me";
 $string2 = "Save this image & Upload me, to that site";
 $string3 = "to read a secret message!";
 
