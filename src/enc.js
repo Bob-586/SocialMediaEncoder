@@ -112,42 +112,11 @@ function btn_enc() {
    try { 
         var mode = document.getElementById('mode').value;
         var omode = document.getElementById('omode').value;
-        
-        switch(omode) {
-            case 'aes': omode = 1; break;
-            case 'des': omode = 2; break;
-            case 'xor': omode = 3; break;
-            default: omode = 4;
-        }
-        
         var text = document.getElementById('enc').value;
         var pwd = document.getElementById('pwd').value;
-        
-        if (text.length > 40 && text.trim().indexOf(" ") === -1) {
-            throw "text only allowed, encode once";
-        }
-        
-        var ret = do_enc(mode, text, pwd);
-        var beef = ret.beef;
-        var main = ret.main;
-        
-        var random_hex_key = rnd_hex_gen();
-        var ok = rnd_hex_gen();
-        
-        var pork = hideme(1, JSON.stringify(beef), random_hex_key + pwd);
-
-        var mo = main.order;
-        var order = hideme(omode, JSON.stringify(mo), ok + pwd);
-        
-        var ds = main.ds;
-        var mode = main.mode;
-
-        var a = { order: order, ds: ds, mode:mode, omode: omode, beef: pork, ok: ok, hk: random_hex_key, v:"1.3" };
-
-//        console.log(JSON.stringify(a));
-        
-        var secret = btoa(JSON.stringify(a)); 
-        document.getElementById('enc').value = secret;
+                        
+        var ret = do_enc(mode, omode, text, pwd);
+        document.getElementById('enc').value = ret;
         
         // Enable make image button, now that we have cypher-text
         var element =  document.getElementById('make');
@@ -200,9 +169,20 @@ function email_check(email) {
     }
 }
 
-function do_enc(mode, text, pwd) {
+function do_enc(mode, omode, text, pwd) {
+    
+   if (text.length > 40 && text.trim().indexOf(" ") === -1) {
+       throw "text only allowed, encode once";
+   } 
+    
    var d = new Date();
-   var ds = d.toString();  
+   var ds = d.toString();
+   switch(omode) {
+       case 'aes': omode = 1; break;
+       case 'des': omode = 2; break;
+       case 'xor': omode = 3; break;
+       default: omode = 4;
+   }
    switch(mode) {
        case 'aes': mode = 1; break;
        case 'des': mode = 2; break;
@@ -245,13 +225,18 @@ function do_enc(mode, text, pwd) {
        }   
    }
    
-   var a = { order: order, ds: ds, mode: mode };
    var beef = {}; // beef is the Unique Words not in words.js file
    for(i=0; i < rev.length; i++) {
        beef[i] = hideme(mode, rev[i], pwd + ds); // save/encrypt your word as it's, now defined
    }
   
-   return { main: a, beef: beef };
+   var random_hex_key = rnd_hex_gen();
+   var ok = rnd_hex_gen();
+   var pork = hideme(1, JSON.stringify(beef), random_hex_key + pwd);
+   var my_order = hideme(omode, JSON.stringify(order), ok + pwd);
+   var a = { order: my_order, ds: ds, mode:mode, omode: omode, beef: pork, ok: ok, hk: random_hex_key, v:"1.3" };
+   // console.log(JSON.stringify(a));
+   return btoa(JSON.stringify(a));   
 }
 
 function btn_dec() {
