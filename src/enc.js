@@ -23,9 +23,7 @@ function rnd_hex_gen() {
 function search_words(mode, key, pass, ds) {
     var bad = was_found(words['banned'], key);
     if (bad !== false) {
-        var grr = "You are a very Bad Man, I shall report you!";
-      //  alert(grr);
-        throw grr;
+        throw "You are a very Bad Man, I shall report you!";
     }
     for(var skey in search_new) {
         if (search_new.hasOwnProperty(skey)) {
@@ -124,6 +122,11 @@ function btn_enc() {
         
         var text = document.getElementById('enc').value;
         var pwd = document.getElementById('pwd').value;
+        
+        if (text.length > 40 && text.trim().indexOf(" ") === -1) {
+            throw "text only allowed, encode once";
+        }
+        
         var ret = do_enc(mode, text, pwd);
         var beef = ret.beef;
         var main = ret.main;
@@ -145,14 +148,56 @@ function btn_enc() {
         
         var secret = btoa(JSON.stringify(a)); 
         document.getElementById('enc').value = secret;
+        
+        // Enable make image button, now that we have cypher-text
+        var element =  document.getElementById('make');
+        if (typeof(element) != 'undefined' && element != null) {
+            element.disabled = false;
+        }
+        
    } catch (err) {
-     console.warn(err.message);
+     if (typeof(err.message) != 'undefined') { 
+        console.warn(err.message);
+        alert(err.message);
+     } else {
+        console.warn(err);
+        alert(err);         
+     }
    }
-   // Enable make image button, now that we have cypher-text
-   var element =  document.getElementById('make');
-   if (typeof(element) != 'undefined' && element != null) {
-       element.disabled = false;
+}
+
+function phone_check(input, e) {
+   var max = input.length;
+   var check = input[e];
+   var d1 = /^\+?[-. ]?([0-9]{3})$/;
+   var d2 = /^\+?[-. ]?([0-9]{4})$/;
+   var d3 = /^\+?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+   var d4 = /^\+?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+
+   if (e+1 < max) {
+       var s1 = input[e+1];
+       if (s1.match(d1) || s1.match(d2) || s1.match(d3) || s1.match(d4)) {
+          check += s1;
+       }
    }
+   if (e+2 < max) {
+       var s2 = input[e+2];
+       if (s2.match(d1) || s2.match(d2) || s2.match(d3) || s2.match(d4)) {
+          check += s2;
+       }
+   }
+   var phoneno1 = /^(\+?1 ?)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+   var phoneno2 = /^(\+?1 ?)?\(?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+   if (check.match(phoneno1) || check.match(phoneno2)) {
+       throw "No phone numbers allowed!";
+   }
+}
+
+function email_check(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(email).toLowerCase())) {
+        throw "No emails allowed!";
+    }
 }
 
 function do_enc(mode, text, pwd) {
@@ -172,6 +217,8 @@ function do_enc(mode, text, pwd) {
    
    var my_arr = [];
    for(e=0; e < u.length; e++) {
+       phone_check(u, e);
+       email_check(u[e]);
        var sw_ans = search_words(mode, u[e], pwd, ds);
        if (sw_ans !== false) {
            continue; // Skip words that exist in words.js file
@@ -213,7 +260,13 @@ function btn_dec() {
      var pwd = document.getElementById('pwd').value; 
      document.getElementById('enc').value = do_dec(text, pwd);
    } catch (err) {
-     console.warn(err.message);
+     if (typeof(err.message) != 'undefined') { 
+        console.warn(err.message);
+        alert(err.message);
+     } else {
+        console.warn(err);
+        alert(err);         
+     }
    }
    // Disable make image button, as we no longer have cypher-text to use
    var element =  document.getElementById('make');
