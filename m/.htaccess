@@ -4,14 +4,16 @@
 # TRACE and TRACK HTTP methods disabled to prevent XSS attacks
     RewriteCond "%{REQUEST_METHOD}" "^TRAC[EK]"
     RewriteRule ".*" "-" [L,R=405]
+# fix
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule "^([0-9]+)/([^/]*)/?$" "fix.php?id=$1&vc=$2" [L]
+# fix
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule "^([0-9]+)/$" "fix.php?id=$1" [L]
 # Short Hand Site
-    RewriteCond "%{REQUEST_FILENAME}" "!-f"
-    RewriteCond "%{REQUEST_FILENAME}" "!-d"
-    RewriteCond "%{REQUEST_FILENAME}" "!-l"
-    RewriteRule "^([^/]*)$" "fetch.php?id=$1" [QSA,L]
-# rewrite everything not found to index.php
-    RewriteCond "%{REQUEST_FILENAME}" "!-f"
-    RewriteCond "%{REQUEST_FILENAME}" "!-d"
-    RewriteCond "%{REQUEST_FILENAME}" "!-l"
-    RewriteRule ".*" "index.php" [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule "^([0-9]+)$" "fetch.php?id=$1" [L]
 </IfModule>

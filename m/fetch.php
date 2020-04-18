@@ -1,3 +1,7 @@
+<?php 
+$vc = $_GET['vc'] ?? '';
+$id = $_GET['id'] ?? '';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +13,7 @@
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js"></script>
         <script type="text/javascript">
-            feed_fetch('<?= $_GET['id'] ?>');
+                feed_fetch('<?= $id ?>', '<?= $vc ?>');
         </script>
     </head>
     <body>
@@ -17,7 +21,7 @@
         <div id="password" style="display: none;">
             <label for="pwd">Required Password: </label>
             <input type="password" id="pwd" />
-            <button onclick="feed_fetch('<?= $_GET['id'] ?>');">Decode</button>
+            <button onclick="feed_fetch('<?= $_GET['id'] ?>', '<?= $vc ?>');">Decode</button>
         </div>
         <div id="feed_container">
                <ul id="feed_update_list"></ul>

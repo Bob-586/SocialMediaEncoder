@@ -10,7 +10,7 @@ if ($id === false || $id === '') {
     exit;    
 }
 try {
-    $sql = "SELECT `cypher`, `has_pwd`, `ts`, `tags` FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
+    $sql = "SELECT `cypher`, `has_pwd`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':id', $id, \PDO::PARAM_INT);
     $pdostmt->execute();

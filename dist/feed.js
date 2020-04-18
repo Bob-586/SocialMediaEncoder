@@ -42,7 +42,13 @@ function post() {
                         var url = window.location.href;
                         var url2 = url.replace("post.php", "");
                         var url_clean = url2.replace("index.php", "");
-                        var msg = obj.Success + ". Your Link is: " + url_clean + id;
+                        
+                        var ds = "";
+                        if (obj.hasOwnProperty('ds')) {
+                            ds = "/" + obj.ds;
+                        }
+                        
+                        var msg = obj.Success + ". Your Link is: " + url_clean + id + ds;
                         document.getElementById('msg').innerHTML = msg;
                         document.getElementById('post').disabled = false;
                         document.getElementById('enc').value = "";
@@ -65,8 +71,8 @@ function post() {
     });
 }
 
-function feed_fetch(id) {
-    postAjax('do_fetch.php', { id: id}, function(json) {
+function feed_fetch(id, vc) {
+    postAjax('do_fetch.php', { id: id }, function(json) {
        document.getElementById('wait').innerHTML = "";
        var obj = JSON.parse(json);
        if (obj.hasOwnProperty('Failed')) {
@@ -94,12 +100,21 @@ function feed_fetch(id) {
                    }
                }
            }
+           var confirmed = "";
+           if (obj.hasOwnProperty('ds') && vc !== "") {
+               var ds = obj.ds;
+               confirmed = "<br><br>Original Message was lost! This may not be the intended message the user wanted to share/post, anymore.";
+               if (ds === vc) {
+                   confirmed = "<br><br>Message confirmed to match verification code. This is the intended message, user wanted to share/post.";
+               }
+           }
            if (obj.hasOwnProperty('cypher')) {
                 var data = obj.cypher;
                 var dec = do_dec(data, pwd); 
                 var breaks = dec.replace(/(?:\r\n|\r|\n)/g, '<br>');  
                 var list = document.getElementById('feed_update_list');
                 var entry = document.createElement('li');
+                breaks += confirmed;
                 entry.innerHTML = breaks.trim();
                 list.appendChild(entry);
                 var hr = document.createElement('hr');
@@ -133,10 +148,14 @@ function feed_fetchs() {
                     var breaks = dec.replace(/(?:\r\n|\r|\n)/g, '<br>');  
                     var list = document.getElementById('feed_update_list');
                     var entry = document.createElement('li');
+                    var ds = "";
+                    if (obj[zz].hasOwnProperty('ds')) {
+                        ds = "/" + obj[zz].ds;
+                    }
                     if (obj[zz].hasOwnProperty('id')) {
                         var url = window.location.href;
                         var url_clean = url.replace("index.php", "");
-                        var msg = "<br><br> ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id;
+                        var msg = "<br><br> ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
                         breaks += msg;
                     }
                     entry.innerHTML = breaks.trim();

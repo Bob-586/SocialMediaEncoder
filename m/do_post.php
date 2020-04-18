@@ -56,6 +56,16 @@ try {
     echo json_encode($data);
     exit;
 }  
+
+try {
+    $sql = "SELECT DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `id`=:id LIMIT 1";
+    $pdostmt = $pdo->prepare($sql);
+    $pdostmt->bindParam(':id', $id, \PDO::PARAM_INT);
+    $pdostmt->execute();
+    $data['ds'] = $pdostmt->fetch(\PDO::FETCH_COLUMN);
+} catch (\PDOException $e) {
+   
+}  
 $data['Success'] = "Posted, thank you";
 $data['id'] = $id;
 echo json_encode($data);
