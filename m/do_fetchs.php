@@ -5,7 +5,7 @@ sleep(2);
 require_once 'db.php';
 
 try {
-    $sql = "SELECT `cypher`, `ts`, `tags` FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` DESC LIMIT 10";
+    $sql = "SELECT `id`, `cypher`, `ts`, `tags` FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` DESC LIMIT 10";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->execute();
         

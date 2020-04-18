@@ -133,6 +133,12 @@ function feed_fetchs() {
                     var breaks = dec.replace(/(?:\r\n|\r|\n)/g, '<br>');  
                     var list = document.getElementById('feed_update_list');
                     var entry = document.createElement('li');
+                    if (obj[zz].hasOwnProperty('id')) {
+                        var url = window.location.href;
+                        var url_clean = url.replace("index.php", "");
+                        var msg = "<br><br> ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id;
+                        breaks += msg;
+                    }
                     entry.innerHTML = breaks.trim();
                     list.appendChild(entry);
                     var hr = document.createElement('hr');
