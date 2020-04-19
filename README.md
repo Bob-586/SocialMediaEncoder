@@ -19,7 +19,7 @@ what is good these days. VPN, maybe??
 - [x] Use image Steganography
 - [x] Encryption uses XOR, DES, or AES
 - [x] Encrypt JSON with AES, plus of individual words used custom encoder method
-- [x] Make links to decode message via Database and short URL. See m folder.
+- [x] Made links to decode message via Database and short URL. See m folder.
 - [x] Admin Pages, to BAN messages
 - [x] Users can report abuses, 5 abuses of same kind = auto-ban
 - [x] Rate Limited posts
