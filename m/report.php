@@ -1,10 +1,11 @@
 <?php
 
 $reasons = [
-    '' => "Select Abuse, if valid only:",
-    'fake'=>'Counterfeit goods sale or probotion', 
-    'privacy'=>'Privacy Policy: address or phone number given', 
-    'violent' => 'Violent Threats'
+    ''        => "Select Abuse, if valid only:",
+    'fake'    => 'Sale or Promotion of COUNTERFEIT/PROHIBITED goods', 
+    'privacy' => 'Privacy/Doxing Policy: Address, Email, or Phone number given', 
+    'violent' => 'Violent Threats with Intent to do harm',
+    'slander' => 'Slander/Defamation of Reputation/Malicious Falsehood of person/company'
 ];
 
 /**

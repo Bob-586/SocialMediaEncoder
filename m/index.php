@@ -8,8 +8,15 @@
         <link rel="stylesheet" href="../dist/feed.min.css">
         <link rel="stylesheet" href="../dist/vkb.css">
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
-        <script type="text/javascript" src="../dist/feed.min.js"></script>
-        <script type="text/javascript">feed_fetchs();</script>
+        <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
+        <script type="text/javascript">
+            var page = 1;
+            function load_more() {
+                feed_fetchs(page);
+                page++;
+            }
+            load_more();
+        </script>
     </head>
     <body>
             
@@ -37,7 +44,7 @@
         <div id="feed_container">
                <ul id="feed_update_list"></ul>
         </div>
-        
+        <div id="pages" style="display: none;"><button onclick="load_more()">Load More</button></div>
         <?php require_once 'report.php'; ?>
         
         <script type="text/javascript" src="../dist/vkb.min.js"></script>

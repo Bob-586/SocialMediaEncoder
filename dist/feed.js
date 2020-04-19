@@ -128,8 +128,8 @@ function feed_fetch(id, vc) {
     });
 }
 
-function feed_fetchs() {
-    postAjax('do_fetchs.php', {}, function(json) {
+function feed_fetchs(pageno) {
+    postAjax('do_fetchs.php', { page: pageno}, function(json) {
        document.getElementById('wait').innerHTML = "";
        var obj = JSON.parse(json);
        if (obj.hasOwnProperty('Failed')) {
@@ -140,7 +140,7 @@ function feed_fetchs() {
        } else if (obj === false) {
            var list = document.getElementById('feed_update_list');
            var entry = document.createElement('li');
-           entry.innerHTML = "No Messages Found!";
+           entry.innerHTML = "No more Messages Found!";
            list.appendChild(entry);
        } else {
            for(var zz=0; zz < obj.length; zz++) {
@@ -166,6 +166,7 @@ function feed_fetchs() {
                     list.appendChild(entry);
                     var hr = document.createElement('hr');
                     list.appendChild(hr);
+                    document.getElementById('pages').style.display = "block";
                }
            }
        }

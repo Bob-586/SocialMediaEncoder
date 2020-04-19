@@ -8,6 +8,8 @@ rate_limit();
 
 sleep(2);
 
+$max_allowed_strikes = 5;
+
 $id = $_POST['id'] ?? false;
 if ($id === false || $id === '') {
     echo "Failure";
@@ -45,12 +47,15 @@ try {
 }  
 
 $a_flags = $flags;
-$a_flags->$flag = true;
+$a_flags->$flag = ($flags->$flag) ? $flags->$flag + 1 : 1;
 $safe_flags = json_encode($a_flags);
+
+$approved = ($a_flags->$flag > $max_allowed_strikes) ? "N" : "Y";
 try {
-    $sql = "UPDATE `posts` SET `flags`=:flags WHERE `id`=:id LIMIT 1";
+    $sql = "UPDATE `posts` SET `flags`=:flags, `approved`=:approved WHERE `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':flags', $safe_flags, \PDO::PARAM_STR);
+    $pdostmt->bindParam(':approved', $approved, \PDO::PARAM_STR);
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
 } catch (\PDOException $e) {

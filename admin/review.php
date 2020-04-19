@@ -9,8 +9,16 @@ require_once '../m/paginate.php';
 $pdo = get_db();
 
 $sql = "SELECT `id`, `cypher`, `flags` FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` DESC";
-$limit = $_GET['limit'] ?? 10;
+$limit = $_GET['limit'] ?? 3;
 $page = $_GET['page'] ?? 1;
+
+if (! filter_var($limit, FILTER_VALIDATE_INT)) {
+    $limit = 10;
+}
+if (! filter_var($page, FILTER_VALIDATE_INT)) {
+    $page = 1;
+}
+
 $pag = new paginate($pdo, $sql);
 $results = $pag->get_data($limit, $page); 
 $links = $pag->create_jump_menu_with_links();
@@ -42,7 +50,7 @@ function grab_text(data, id, flags) {
         var obj = JSON.parse(flags);
         var s_flags = "";
         for(var prop in obj) {
-            s_flags += "<br><br><b>Reported FLAGs :</b> " + prop + "<br><br>";
+            s_flags += "<br><br><b>("+obj[prop]+") Reported FLAGs for :</b> " + prop + "<br><br>";
         }
         breaks += s_flags;
     }
