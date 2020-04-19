@@ -28,7 +28,7 @@ $id = $_GET['id'] ?? '';
                <ul id="feed_update_list"></ul>
         </div>
 
-        <a href="post.php" class="uk-button uk-button-primary uk-button-large">Encode new message</a>
+        <a href="index.php" class="uk-button uk-button-primary uk-button-large">Encode new message</a>
         
         <?php require_once 'report.php'; ?>
         

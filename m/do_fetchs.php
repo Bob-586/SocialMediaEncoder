@@ -13,7 +13,7 @@ if (! filter_var($page, FILTER_VALIDATE_INT)) {
 $pdo = get_db();
 
 try {
-    $sql = "SELECT `id`, `cypher`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` ASC LIMIT " . ( ( $page - 1 ) * $limit ) . ", {$limit};";
+    $sql = "SELECT `id`, `cypher`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` DESC LIMIT " . ( ( $page - 1 ) * $limit ) . ", {$limit};";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->execute();
     $count = $pdostmt->rowCount();    
