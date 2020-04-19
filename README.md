@@ -19,7 +19,7 @@ what is good these days. VPN, maybe??
 - [x] Use image Steganography
 - [x] Encryption uses XOR, DES, or AES
 - [x] Encrypt JSON with AES, plus of individual words used custom encoder method
-- [ ] Make links to decode message via Database and short URL
+- [x] Make links to decode message via Database and short URL. See m folder.
 - [x] Easy Minify all JavaScript with gulp
 - [x] Requires PHP version 7.x
 - [x] Added LGPLv3 logo
