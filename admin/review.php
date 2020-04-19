@@ -4,6 +4,14 @@ require_once 'start_html.php';
 <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
 <?php
 require_once '../m/db.php';
+
+make_session_started();
+$is_a_admin = has_role('admin');
+if (! $is_a_admin) {
+    echo "Access Denied!";
+    exit;
+}
+
 require_once '../m/paginate.php';
 
 $pdo = get_db();
