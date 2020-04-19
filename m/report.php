@@ -2,7 +2,7 @@
 
 $reasons = [
     ''        => "Select Abuse, if valid only:",
-    'fake'    => 'Sale or Promotion of COUNTERFEIT/PROHIBITED goods', 
+ 'fake_goods' => 'Sale or Promotion of COUNTERFEIT/PROHIBITED goods', 
     'privacy' => 'Privacy/Doxing Policy: Address, Email, or Phone number given', 
     'violent' => 'Violent Threats with Intent to do harm',
     'slander' => 'Slander/Defamation of Reputation/Malicious Falsehood of person/company'
@@ -55,10 +55,15 @@ $reasons = [
 <script type="text/javascript">
 var report_id = 0;
 function report(me) {
-    if (me.value !== "" && report_id > 0) {
-        postAjax('do_report.php', { id: report_id, flag: me.value }, function(data) {
-            alert(data);
-        });
+    var v = me.options[me.selectedIndex].text;
+    if (confirm("Are you absolutly sure of " + v + " was a valid violation on them?")) {
+    
+        if (me.value !== "" && report_id > 0) {
+            postAjax('do_report.php', { id: report_id, flag: me.value }, function(data) {
+                alert(data);
+            });
+        }
+    
     }
     modal.style.display = "none";
     document.getElementById("reporting").selectedIndex = 0;

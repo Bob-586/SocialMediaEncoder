@@ -4,6 +4,8 @@ sleep(2);
 
 require_once 'db.php';
 
+header('Content-Type: application/json');
+
 $id = $_POST['id'] ?? false;
 if ($id === false || $id === '') {
     echo json_encode(["Failed" => "Error"]);
@@ -19,13 +21,23 @@ if (! filter_var($safe_id, FILTER_VALIDATE_INT)) {
 $pdo = get_db();
 
 try {
-    $sql = "SELECT `cypher`, `has_pwd`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
+    $sql = "SELECT `approved`, `flags` FROM `posts` WHERE `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
-        
-    header('Content-Type: application/json');
-    echo json_encode($pdostmt->fetch(\PDO::FETCH_OBJ));
+    
+    $obj = $pdostmt->fetch(\PDO::FETCH_OBJ);
+    if ($obj->approved === "N") {
+        echo json_encode($obj);
+        exit;
+    }
+    
+    $sql = "SELECT `cypher`, `has_pwd`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `id`=:id LIMIT 1";
+    $pdostmt = $pdo->prepare($sql);
+    $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
+    $pdostmt->execute();
+    $obj = $pdostmt->fetch(\PDO::FETCH_OBJ);
+    echo json_encode($obj);
 } catch (\PDOException $e) {
     echo json_encode(["Failed" => "Error"]);
     exit;

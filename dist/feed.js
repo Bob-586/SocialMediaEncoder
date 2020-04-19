@@ -80,6 +80,18 @@ function feed_fetch(id, vc) {
            var entry = document.createElement('li');
            entry.innerHTML = obj.Failed;
            list.appendChild(entry);
+       } else if (obj.hasOwnProperty('approved') && obj.approved === "N") {
+           var list = document.getElementById('feed_update_list');
+           var entry = document.createElement('li');
+           var reason = "";
+           if (obj.hasOwnProperty('flags') && obj.flags.length > 3) {
+               var flags = JSON.parse(obj.flags);
+               for(var flag in flags) {
+                   reason += " - (" + flags[flag] + ") Flagged as " + flag + " abuse.";
+               }
+           }
+           entry.innerHTML = "Sorry, that message was BANNED! " + reason;
+           list.appendChild(entry);
        } else if (obj === false) {
            var list = document.getElementById('feed_update_list');
            var entry = document.createElement('li');
