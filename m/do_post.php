@@ -7,6 +7,8 @@ make_session_started();
 $cypher = $_POST['enc'] ?? false;
 $pass = $_POST['pass'] ?? "N";
 $has_passowrd = ($pass === "true") ? "Y" : "N";
+$style = $_POST['style'] ?? "";
+$tags = $_POST['tags'] ?? "";
 
 header('Content-Type: application/json');
 
@@ -21,14 +23,17 @@ if ($cypher === false) {
 }
 
 $safe_cypher = encode_clean($cypher);
-
+$safe_style = strip_tags($style); // Don't use encode_clean as quotes are needed for it to work
+$safe_tags = encode_clean($tags);
 $pdo = get_db();
 
 try {
-    $sql = "INSERT INTO `posts` SET `cypher`=:cypher, `has_pwd`=:has_pwd";
+    $sql = "INSERT INTO `posts` SET `cypher`=:cypher, `has_pwd`=:has_pwd, `style`=:style, `tags`=:tags";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':cypher', $safe_cypher, \PDO::PARAM_STR);
     $pdostmt->bindParam(':has_pwd', $has_passowrd, \PDO::PARAM_STR);
+    $pdostmt->bindParam(':style', $safe_style, \PDO::PARAM_STR);
+    $pdostmt->bindParam(':tags', $safe_tags, \PDO::PARAM_STR);
     $pdostmt->execute();
     $id = $pdo->lastInsertId();
 } catch (\PDOException $e) {

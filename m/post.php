@@ -28,6 +28,8 @@
             <input type="password" id="pwd" />
             <button onclick="show_vkb(); return false;" id="btn-svkb">Show Virtual Keyboard, to avoid key stroke logging</button>
             <div class="simple-keyboard" id="dvkb" style="display: none;"></div><br><br>
+            <?php require_once 'style.php'; ?>
+            <br>
             <button onclick="post();" id="post" class="uk-button uk-button-main uk-button-small">Post</button>
             <span id="msg"></span>
         </div>

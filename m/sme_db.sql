@@ -31,7 +31,8 @@ CREATE TABLE `posts` (
   `has_pwd` varchar(1) NOT NULL DEFAULT 'N',
   `tags` tinytext NOT NULL,
   `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `approved` varchar(1) NOT NULL DEFAULT 'Y'
+  `approved` varchar(1) NOT NULL DEFAULT 'Y',
+  `style` tinytext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

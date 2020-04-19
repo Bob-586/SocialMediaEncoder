@@ -32,7 +32,9 @@ function post() {
         var l = (pwd.length >0);
         try {
             var ret = do_enc('xor', 'des', enc, pwd);
-            postAjax('do_post.php', { enc: ret, pass: l }, function(json){
+            var styles = get_styles();
+            var tags = document.getElementById('tags').value;
+            postAjax('do_post.php', { enc: ret, pass: l, style: styles, tags: tags }, function(json){
                 var obj = JSON.parse(json);
                 if (obj.hasOwnProperty('Failed')) {
                     document.getElementById('msg').innerHTML = obj.Failed;
@@ -120,6 +122,10 @@ function feed_fetch(id, vc) {
                    confirmed = "<br><br>Message confirmed to match verification code. This is the intended message, user wanted to share/post.";
                }
            }
+           var styles = "";
+           if (obj.hasOwnProperty('style')) {
+               styles = obj.style;
+           }
            if (obj.hasOwnProperty('cypher')) {
                 var data = obj.cypher;
                 var dec = do_dec(data, pwd); 
@@ -127,6 +133,7 @@ function feed_fetch(id, vc) {
                 var list = document.getElementById('feed_update_list');
                 var entry = document.createElement('li');
                 breaks += confirmed;
+                entry.style = styles;
                 entry.innerHTML = breaks.trim();
                 list.appendChild(entry);
                 var hr = document.createElement('hr');
@@ -156,6 +163,10 @@ function feed_fetchs(pageno) {
            list.appendChild(entry);
        } else {
            for(var zz=0; zz < obj.length; zz++) {
+               var styles = "";
+               if (obj[zz].hasOwnProperty('style')) {
+                   styles = obj[zz].style;
+               }
                if (obj[zz].hasOwnProperty('cypher')) {
                     var data = obj[zz].cypher;
                     var dec = do_dec(data, ''); 
@@ -173,6 +184,7 @@ function feed_fetchs(pageno) {
                         var msg = "<br><br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
                         breaks += msg;
                     }
+                    entry.style = styles;
                     entry.innerHTML = breaks.trim();
                     list.appendChild(entry);
                     var hr = document.createElement('hr');

@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="../dist/uikit.min.css">
         <link rel="stylesheet" href="../dist/feed.min.css">
         <link rel="stylesheet" href="../dist/vkb.css">
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
         <link rel="manifest" href="../manifest.json">
@@ -35,7 +36,9 @@
             <label for="pwd">*(optional) Password for Group:</label>
             <input type="password" id="pwd" />
             <button onclick="show_vkb(); return false;" id="btn-svkb">Show Virtual Keyboard, to avoid key stroke logging</button>
-            <div class="simple-keyboard" id="dvkb" style="display: none;"></div><br><br>
+            <div class="simple-keyboard" id="dvkb" style="display: none;"></div>
+            <?php require_once 'style.php'; ?>
+            <br>
             <button onclick="post();" id="post" class="uk-button uk-button-main uk-button-small">Post</button>
             <span id="msg"></span>
         </div>
