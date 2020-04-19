@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="../dist/vkb.css">
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
+        <link rel="manifest" href="../manifest.json">
         <script type="text/javascript">
             var page = 1;
             function load_more() {
@@ -23,7 +24,7 @@
         <section>
         <fieldset>
         <legend>Message to Post</legend>    
-            <a id="copybtn" class='clipboard' title='Copy'></a>
+            <a id="copybtn" class="clipboard" title="Copy/Paste"></a>
             <div style="float: right;" class="nomobile">
                 <img src="../dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" />
                 <br>

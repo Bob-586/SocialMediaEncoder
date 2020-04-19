@@ -31,8 +31,14 @@ document.addEventListener("DOMContentLoaded", function() {
         copybtn.addEventListener('click', function() {
            var elm = document.getElementById('enc');
            if (typeof(elm) != 'undefined' && elm != null) {
-                clipboard_select(elm);
-                clipboard_copy();
+               if (elm.value === "") {
+                    navigator.clipboard.readText().then(function(text) {
+                        elm.value = text;
+                    }); 
+               } else {
+                    clipboard_select(elm);
+                    clipboard_copy();
+               }
            }
         });    
     }

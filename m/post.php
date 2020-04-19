@@ -9,13 +9,14 @@
         <link rel="stylesheet" href="../dist/vkb.css">
         <script type="text/javascript" src="../dist/all.min.js?v=1.3" defer></script>
         <script type="text/javascript" src="../dist/feed.min.js" defer></script>
+        <link rel="manifest" href="../manifest.json">
     </head>
     <body>
             
         <section>
         <fieldset>
         <legend>Message to Post</legend>    
-            <a id="copybtn" class='clipboard' title='Copy'></a>
+            <a id="copybtn" class='clipboard' title='Copy/Paste'></a>
             <div style="float: right;" class="nomobile">
                 <img src="../dist/lgplv3-with-text-154x68.png" alt="License: LGPLv3 Free as in Freedom" />
                 <br>
