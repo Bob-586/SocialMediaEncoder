@@ -110,7 +110,7 @@ for($size = 16; $size < 47; $size++ ) {
 <label for="align">Text Align</label><select id="align"><?= do_options_backwards($text_align); ?></select>
 <label for="size">Font Size</label><select id="size"><?= do_options_backwards($fonts_size, '20'); ?></select>
 <label for="color">Colors</label><select id="color"><?= do_options_backwards($styles); ?></select>
-<label for="tags">Hash Tags</label><input type="text" id="tags" />
+<label for="tags">Hash Tags</label><input type="text" id="tags" maxlength="200" />
 </fieldset>
 </section>
 
