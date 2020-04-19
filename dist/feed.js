@@ -117,9 +117,9 @@ function feed_fetch(id, vc) {
            var confirmed = "";
            if (obj.hasOwnProperty('ds') && vc !== "") {
                var ds = obj.ds;
-               confirmed = "<br><br>Original Message was lost! This may not be the intended message the user wanted to share/post, anymore.";
+               confirmed = "Original Message was lost! This may not be the intended message the user wanted to share/post, anymore.";
                if (ds === vc) {
-                   confirmed = "<br><br>Message confirmed to match verification code. This is the intended message, user wanted to share/post.";
+                   confirmed = "Message confirmed to match verification code. This is the intended message, user wanted to share/post.";
                }
            }
            var styles = "";
@@ -132,10 +132,14 @@ function feed_fetch(id, vc) {
                 var breaks = dec.replace(/(?:\r\n|\r|\n)/g, '<br>');  
                 var list = document.getElementById('feed_update_list');
                 var entry = document.createElement('li');
-                breaks += confirmed;
                 entry.style = styles;
                 entry.innerHTML = breaks.trim();
                 list.appendChild(entry);
+                if (confirmed !== "") {
+                    var div = document.createElement('div');
+                    div.innerHTML = confirmed;
+                    list.appendChild(div);
+                }
                 var ds = "";
                 if (obj.hasOwnProperty('ds')) {
                     ds = "/" + obj.ds;
