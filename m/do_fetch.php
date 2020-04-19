@@ -15,6 +15,9 @@ if (! filter_var($safe_id, FILTER_VALIDATE_INT)) {
     echo json_encode(["Failed" => "Error"]);
     exit;     
 }
+
+$pdo = get_db();
+
 try {
     $sql = "SELECT `cypher`, `has_pwd`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);

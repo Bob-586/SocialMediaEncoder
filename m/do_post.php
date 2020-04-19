@@ -1,14 +1,6 @@
 <?php
 
-function make_session_started() {
-  if ((function_exists('session_status') && session_status() !== PHP_SESSION_ACTIVE) || !session_id()) {
-    session_name('m_');
-    if (! headers_sent()) {
-//      session_set_cookie_params(0, '/');
-        session_start();
-    }
-  }
-}
+require_once 'db.php';
 
 make_session_started();
 
@@ -17,20 +9,6 @@ $pass = $_POST['pass'] ?? "N";
 $has_passowrd = ($pass === "true") ? "Y" : "N";
 
 header('Content-Type: application/json');
-
-function rate_limit() {
-	if (isset($_SESSION['LAST_CALL'])) {
-		$last = strtotime($_SESSION['LAST_CALL']);
-		$curr = strtotime(date("Y-m-d h:i:s"));
-		$sec =  abs($last - $curr);
-		if ($sec <= 12) { // rate limit
-		  $data['Error'] = 'Rate Limit Exceeded'; 
-		  echo json_encode($data);
-		  exit;	
-		}
-	}
-	$_SESSION['LAST_CALL'] = date("Y-m-d h:i:s");
-}
 
 rate_limit();
 
@@ -42,8 +20,9 @@ if ($cypher === false) {
     exit;
 }
 
-require_once 'db.php';
 $safe_cypher = encode_clean($cypher);
+
+$pdo = get_db();
 
 try {
     $sql = "INSERT INTO `posts` SET `cypher`=:cypher, `has_pwd`=:has_pwd";

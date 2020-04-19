@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../dist/uikit.min.css">
-        <link rel="stylesheet" href="../dist/feed.css">
+        <link rel="stylesheet" href="../dist/feed.min.css">
         <link rel="stylesheet" href="../dist/vkb.css">
         <script type="text/javascript" src="../dist/all.min.js?v=1.3" defer></script>
         <script type="text/javascript" src="../dist/feed.min.js" defer></script>

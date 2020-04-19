@@ -119,6 +119,8 @@ function feed_fetch(id, vc) {
                 list.appendChild(entry);
                 var hr = document.createElement('hr');
                 list.appendChild(hr);
+                
+                document.getElementById('btn-abuse').style.display = "block";
            } else {
                 document.getElementById('wait').innerHTML = "No Results Found";
            }
@@ -156,6 +158,8 @@ function feed_fetchs() {
                         var url = window.location.href;
                         var url_clean = url.replace("index.php", "");
                         var msg = "<br><br> ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
+                        var reporting_abuse = "<button onclick='btn_report(\""+obj[zz].id+"\");'>Report Abuse</button>";
+                        breaks += reporting_abuse;
                         breaks += msg;
                     }
                     entry.innerHTML = breaks.trim();
