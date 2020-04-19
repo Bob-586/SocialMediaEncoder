@@ -9,10 +9,16 @@ if ($id === false || $id === '') {
     echo json_encode(["Failed" => "Error"]);
     exit;    
 }
+
+$safe_id = encode_clean($id);
+if (! filter_var($safe_id, FILTER_VALIDATE_INT)) {
+    echo json_encode(["Failed" => "Error"]);
+    exit;     
+}
 try {
     $sql = "SELECT `cypher`, `has_pwd`, `tags`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
-    $pdostmt->bindParam(':id', $id, \PDO::PARAM_INT);
+    $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
         
     header('Content-Type: application/json');
