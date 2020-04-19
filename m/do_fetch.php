@@ -32,7 +32,7 @@ try {
         exit;
     }
     
-    $sql = "SELECT `cypher`, `has_pwd`, `tags`, `style`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `id`=:id LIMIT 1";
+    $sql = "SELECT `id`, `cypher`, `has_pwd`, `tags`, `style`, DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();

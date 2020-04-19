@@ -136,10 +136,20 @@ function feed_fetch(id, vc) {
                 entry.style = styles;
                 entry.innerHTML = breaks.trim();
                 list.appendChild(entry);
+                var ds = "";
+                if (obj.hasOwnProperty('ds')) {
+                    ds = "/" + obj.ds;
+                }
+                if (obj.hasOwnProperty('id')) {
+                    var url = window.location.href;
+                    var reporting_abuse = "<button onclick='btn_report(\""+obj.id+"\");'>Report Abuse</button>";                        
+                    var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url;
+                    var span = document.createElement('span');
+                    span.innerHTML = msg;
+                    list.appendChild(span);
+                }                
                 var hr = document.createElement('hr');
                 list.appendChild(hr);
-                
-                document.getElementById('btn-abuse').style.display = "block";
            } else {
                 document.getElementById('wait').innerHTML = "No Results Found";
            }
@@ -177,16 +187,18 @@ function feed_fetchs(pageno) {
                     if (obj[zz].hasOwnProperty('ds')) {
                         ds = "/" + obj[zz].ds;
                     }
+                    entry.style = styles;
+                    entry.innerHTML = breaks.trim();
+                    list.appendChild(entry);
                     if (obj[zz].hasOwnProperty('id')) {
                         var url = window.location.href;
                         var url_clean = url.replace("index.php", "");
                         var reporting_abuse = "<button onclick='btn_report(\""+obj[zz].id+"\");'>Report Abuse</button>";                        
-                        var msg = "<br><br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
-                        breaks += msg;
+                        var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
+                        var span = document.createElement('span');
+                        span.innerHTML = msg;
+                        list.appendChild(span);
                     }
-                    entry.style = styles;
-                    entry.innerHTML = breaks.trim();
-                    list.appendChild(entry);
                     var hr = document.createElement('hr');
                     list.appendChild(hr);
                     document.getElementById('pages').style.display = "block";

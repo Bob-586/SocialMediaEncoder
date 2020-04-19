@@ -25,7 +25,6 @@ $id = $_GET['id'] ?? '';
             <button onclick="feed_fetch('<?= $_GET['id'] ?>', '<?= $vc ?>');">Decode</button>
         </div>
         <div id="feed_container">
-               <button onclick="btn_report('<?= $_GET['id'] ?>');" style="display: none;" id="btn-abuse">Report Abuse</button>
                <ul id="feed_update_list"></ul>
         </div>
 
