@@ -35,3 +35,7 @@ try {
     echo $e->getMessage();
     exit;
 }
+
+function encode_clean(string $data): string {
+    return htmlentities(trim($data), ENT_QUOTES, 'UTF-8');
+}

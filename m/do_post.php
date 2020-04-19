@@ -43,11 +43,12 @@ if ($cypher === false) {
 }
 
 require_once 'db.php';
+$safe_cypher = encode_clean($cypher);
 
 try {
     $sql = "INSERT INTO `posts` SET `cypher`=:cypher, `has_pwd`=:has_pwd";
     $pdostmt = $pdo->prepare($sql);
-    $pdostmt->bindParam(':cypher', $cypher, \PDO::PARAM_STR);
+    $pdostmt->bindParam(':cypher', $safe_cypher, \PDO::PARAM_STR);
     $pdostmt->bindParam(':has_pwd', $has_passowrd, \PDO::PARAM_STR);
     $pdostmt->execute();
     $id = $pdo->lastInsertId();
