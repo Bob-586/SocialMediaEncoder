@@ -1,6 +1,29 @@
 <?php
 require_once 'start_html.php';
 ?>
+<style>
+#feed_container {
+   min-height:45px;
+   height:auto !important;
+   height:40px;
+   padding-bottom:10px;
+}
+
+#feed_update_list {
+   padding: 0;
+   overflow: hidden;
+   font-family: 'Times New Roman', Times, Georgia, Serif;
+   font-size: 16px;
+   font-style: italic;
+   color: #31353d;
+   line-height: 16px;
+   font-weight:bold;
+}
+
+#feed_update_list li {
+   list-style: none;
+}    
+</style>
 <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
 <?php
 require_once '../m/db.php';
