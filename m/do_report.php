@@ -27,6 +27,7 @@ if ($flag === false || $flag === '') {
     echo "Failure";
     exit;    
 }
+$safe_flag = encode_clean($flag);
 
 $pdo = get_db();
 
@@ -47,7 +48,7 @@ try {
 }  
 
 $a_flags = $flags;
-$a_flags->$flag = ($flags->$flag) ? $flags->$flag + 1 : 1;
+$a_flags->$safe_flag = ($flags->$safe_flag) ? $flags->$safe_flag + 1 : 1;
 $safe_flags = json_encode($a_flags);
 
 $approved = ($a_flags->$flag > $max_allowed_strikes) ? "N" : "Y";
