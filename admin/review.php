@@ -50,7 +50,7 @@ function grab_text(data, id, flags) {
         var obj = JSON.parse(flags);
         var s_flags = "";
         for(var prop in obj) {
-            s_flags += "<br><br><b>("+obj[prop]+") Reported FLAGs for :</b> " + prop + "<br><br>";
+            s_flags += "<br><b>("+obj[prop]+") Reported FLAGs for :</b> " + prop;
         }
         breaks += s_flags;
     }
@@ -58,7 +58,7 @@ function grab_text(data, id, flags) {
     var list = document.getElementById('feed_update_list');
     var entry = document.createElement('li');
     
-    var reporting_abuse = "<span id='ban-"+id+"'></span><button onclick='ban(\""+id+"\", this);'>Ban</button>";
+    var reporting_abuse = "<br><span id='ban-"+id+"'></span><button onclick='ban(\""+id+"\", this);'>Ban</button>";
     breaks += reporting_abuse;
     
     entry.innerHTML = breaks.trim();

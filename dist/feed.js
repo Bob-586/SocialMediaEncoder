@@ -157,9 +157,8 @@ function feed_fetchs(pageno) {
                     if (obj[zz].hasOwnProperty('id')) {
                         var url = window.location.href;
                         var url_clean = url.replace("index.php", "");
-                        var msg = "<br><br> ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
-                        var reporting_abuse = "<button onclick='btn_report(\""+obj[zz].id+"\");'>Report Abuse</button>";
-                        breaks += reporting_abuse;
+                        var reporting_abuse = "<button onclick='btn_report(\""+obj[zz].id+"\");'>Report Abuse</button>";                        
+                        var msg = "<br><br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
                         breaks += msg;
                     }
                     entry.innerHTML = breaks.trim();
