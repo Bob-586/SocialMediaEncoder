@@ -89,13 +89,18 @@ $styles = [
 ];
 
 $cursive = [
-    "normal-text" => "",
-    "cursive" => "font-family: 'Dancing Script', cursive;"
+    "Normal_Text" => "",
+    "Girassol_Title_Text" => "font-family: 'Girassol', cursive;",
+    "Cursive" => "font-family: 'Dancing Script', cursive;",
+    "Permanent_Marker" => "ont-family: 'Permanent Marker', cursive;",
+    "Gochi_Hand" => "font-family: 'Gochi Hand', cursive;",
+    "Amiri" => "font-family: 'Amiri', serif;"
 ];
 
 $text_align = [
-    "left" => "text-align: left;",
-    "center" => "text-align: center;"
+    "Left" => "text-align: left;",
+    "Center" => "text-align: center;",
+    "Right" => "text-align: right;"
 ];
 
 $fonts_size = [];
@@ -110,12 +115,61 @@ for($size = 16; $size < 47; $size++ ) {
 <label for="align">Text Align</label><select id="align"><?= do_options_backwards($text_align); ?></select>
 <label for="size">Font Size</label><select id="size"><?= do_options_backwards($fonts_size, '20'); ?></select>
 <label for="color">Colors</label><select id="color"><?= do_options_backwards($styles); ?></select>
+<button onclick="document.getElementById('sample-text').style = get_styles();" class="uk-button-small u-button uk-button-primary">Try-me-out</button>
 <label for="tags">Hash Tags</label><input type="text" id="tags" maxlength="200" />
+<p id="sample-text" style="display: none;">
+    Sample Text , Welcome . . . .<br>
+    Line #2 , More TEXT for you !
+</p>
 </fieldset>
 </section>
 
 <script type="text/javascript">
+    /* Set Cookie */
+    function sme_set_cookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    /* Get Cookie */
+    function sme_get_cookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+        }
+        return "";
+    }    
+
+    function get_index_from_cbo(elme_id) {
+        var me = document.getElementById(elme_id);
+        return me.selectedIndex;
+    }
+    
+    function set_index_for_cbo(elme_id, index) {
+        var me = document.getElementById(elme_id);
+        me.selectedIndex = index;
+    }
+    
     function get_styles() {
+        var oj = { cursive: get_index_from_cbo('cursive'), align: get_index_from_cbo('align'), size: get_index_from_cbo('size'), color: get_index_from_cbo('color') };
+        var s = btoa(JSON.stringify(oj));
+        sme_set_cookie('sme_r_styles', s, 2);
         return document.getElementById('cursive').value + document.getElementById('align').value + document.getElementById('size').value + document.getElementById('color').value; 
     }
+    
+    var c = sme_get_cookie('sme_r_styles');
+    if (c !== "") {
+        var s = atob(c);
+        var j = JSON.parse(s);
+        set_index_for_cbo('cursive', j.cursive);
+        set_index_for_cbo('align', j.align);
+        set_index_for_cbo('size', j.size);
+        set_index_for_cbo('color', j.color);
+    }
+    
 </script>    

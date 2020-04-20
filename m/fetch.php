@@ -10,7 +10,7 @@ $id = $_GET['id'] ?? '';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../dist/uikit.min.css">
         <link rel="stylesheet" href="../dist/feed.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+        <?php require_once 'fonts.php'; ?>
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js"></script>
         <script type="text/javascript">

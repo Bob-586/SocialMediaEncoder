@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../dist/uikit.min.css">
         <link rel="stylesheet" href="../dist/feed.min.css">
         <link rel="stylesheet" href="../dist/vkb.css">
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+        <?php require_once 'fonts.php'; ?>
         <script type="text/javascript">
         var uri = window.location.href.toString();
         var grr = uri.split('/<?= basename(__DIR__) ?>/');
