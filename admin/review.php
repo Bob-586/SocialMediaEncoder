@@ -118,4 +118,4 @@ foreach($results->data as $row) {
 
 echo $links;
 
-require_once 'start_html.php';
+require_once 'end_html.php';

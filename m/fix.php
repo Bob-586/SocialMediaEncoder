@@ -19,4 +19,5 @@ $cwd = basename(__DIR__);
         
         window.location = path + "/fetch.php<?= $lc ?>";
     </script>
-    </head>        
+    </head>
+</html>    

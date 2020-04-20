@@ -145,9 +145,8 @@ function feed_fetch(id, vc) {
                     ds = "/" + obj.ds;
                 }
                 if (obj.hasOwnProperty('id')) {
-                    var url = window.location.href;
                     var reporting_abuse = "<button onclick='btn_report(\""+obj.id+"\");'>Report Abuse</button>";                        
-                    var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url;
+                    var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + mysite + obj.id + ds;
                     var span = document.createElement('span');
                     span.innerHTML = msg;
                     list.appendChild(span);
@@ -161,8 +160,9 @@ function feed_fetch(id, vc) {
     });
 }
 
-function feed_fetchs(pageno) {
-    postAjax('do_fetchs.php', { page: pageno}, function(json) {
+
+function feed_fetchs(page_no, limit) {
+    postAjax('do_fetchs.php', { page: page_no, limit: limit}, function(json) {
        document.getElementById('wait').innerHTML = "";
        var obj = JSON.parse(json);
        if (obj.hasOwnProperty('Failed')) {
@@ -195,17 +195,14 @@ function feed_fetchs(pageno) {
                     entry.innerHTML = breaks.trim();
                     list.appendChild(entry);
                     if (obj[zz].hasOwnProperty('id')) {
-                        var url = window.location.href;
-                        var url_clean = url.replace("index.php", "");
                         var reporting_abuse = "<button onclick='btn_report(\""+obj[zz].id+"\");'>Report Abuse</button>";                        
-                        var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + url_clean + obj[zz].id + ds;
+                        var msg = "<br>" + reporting_abuse + " ** The Shared Link for this message is &nbsp; &nbsp; " + mysite + obj[zz].id + ds;
                         var span = document.createElement('span');
                         span.innerHTML = msg;
                         list.appendChild(span);
                     }
                     var hr = document.createElement('hr');
                     list.appendChild(hr);
-                    document.getElementById('pages').style.display = "block";
                }
            }
        }

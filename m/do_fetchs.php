@@ -5,9 +5,15 @@ sleep(2);
 require_once 'db.php';
 
 $page = $_POST['page'] ?? 1;
-$limit = 2;
+$limit = $_POST['limit'] ?? 2;
 if (! filter_var($page, FILTER_VALIDATE_INT)) {
     $page = 1;
+}
+if (! filter_var($limit, FILTER_VALIDATE_INT)) {
+    $limit = 2;
+}
+if ($limit > 11) {
+    $limit = 10; // Don't go nutts with Cypher-Text!
 }
 
 $pdo = get_db();

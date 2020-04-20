@@ -14,6 +14,9 @@ $id = $_GET['id'] ?? '';
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js"></script>
         <script type="text/javascript">
+                var uri = window.location.href.toString();
+                var grr = uri.split('/<?= basename(__DIR__) ?>/');
+                var mysite = grr[0] + '/<?= basename(__DIR__) ?>/';    
                 feed_fetch('<?= $id ?>', '<?= $vc ?>');
         </script>
     </head>
@@ -22,7 +25,7 @@ $id = $_GET['id'] ?? '';
         <div id="password" style="display: none;">
             <label for="pwd">Required Password: </label>
             <input type="password" id="pwd" />
-            <button onclick="feed_fetch('<?= $_GET['id'] ?>', '<?= $vc ?>');">Decode</button>
+            <button onclick="feed_fetch('<?= $id ?>', '<?= $vc ?>');">Decode</button>
         </div>
         <div id="feed_container">
                <ul id="feed_update_list"></ul>

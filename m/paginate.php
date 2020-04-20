@@ -21,6 +21,11 @@ class paginate {
         $this->_total = $rs->rowCount();
     }
 
+    public function set_pages(int $limit = 10, int $page = 1) {
+        $this->_limit = $limit;
+        $this->_page = $page;
+    }
+    
     public function get_data(int $limit = 10, int $page = 1) {
         $this->_limit = $limit;
         $this->_page = $page;
@@ -46,42 +51,50 @@ class paginate {
         return $result;
     }
 
-    public function create_links(int $links = 7, string $list_class = "ui pagination menu", string $item = "item") {
+    public function create_links(int $links = 7, string $list_class = "pagination pagination-sm", string $item = "item") {
         if ($this->_limit === 0) {
             return '';
         }
+        
+        $class_disabled = "disabled";
+        $class = "";
 
         $last = ceil($this->_total / $this->_limit);
 
         $start = ( ( $this->_page - $links ) > 0 ) ? $this->_page - $links : 1;
         $end = ( ( $this->_page + $links ) < $last ) ? $this->_page + $links : $last;
 
-        $html = '<div class="' . $list_class . '">';
-
-        $class = ( $this->_page == 1 ) ? "disabled " : "";
-        $item = " " . $item;
+        $html = '<ul class="' . $list_class . '">';
+ 
+        if ( $this->_page == 1 ) {
+            $html .= '<li class="' . $class_disabled . '"><a href="#">&laquo;</a></li>';
+        } else {
+            $html .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . '">&laquo;</a></li>';
+        }
         
-        $html .= '<a class="' . $class . $item . '" href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . '">&laquo;</a>';
 
-        if ($start > 1) {
-            $html .= '<a class="' . $item . '" href="?limit=' . $this->_limit . '&page=1">1</a>';
-            $html .= '<div class="disabled' . $item . '"><span>...</span></div>';
+        if ( $start > 1 ) {
+            $html .= '<li><a href="?limit=' . $this->_limit . '&page=1">1</a></li>';
+            $html .= '<li class="' . $class_disabled . '"><span>...</span></li>';
         }
 
-        for ($i = $start; $i <= $end; $i++) {
-            $class = ( $this->_page == $i ) ? "active" : "";
-            $html .= '<a class="' . $class . $item . '" href="?limit=' . $this->_limit . '&page=' . $i . '">' . $i . '</a>';
+        for ( $i = $start ; $i <= $end; $i++ ) {
+            $no_class  = ( $this->_page == $i ) ? "active" : "";
+            $html .= '<li class="' . $no_class . '"><a href="?limit=' . $this->_limit . '&page=' . $i . '">' . $i . '</a></li>';
         }
 
-        if ($end < $last) {
-            $html .= '<div class="disabled item"><span>...</span></div>';
-            $html .= '<a class="' . $class . $item . '" href="?limit=' . $this->_limit . '&page=' . $last . '">' . $last . '</a>';
+        if ( $end < $last ) {
+            $html .= '<li class="' . $class_disabled . '"><span>...</span></li>';
+            $html .= '<li><a href="?limit=' . $this->_limit . '&page=' . $last . '">' . $last . '</a></li>';
         }
 
-        $class = ( $this->_page == $last ) ? "disabled" : "";
-        $html .= '<a class="' . $class . $item . '" href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . '">&raquo;</a>';
+        if ( $this->_page == $last ) {
+            $html .= '<li class="' . $class_disabled . '"><a href="#">&raquo;</a></li>';
+        } else {
+            $html .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
+        }        
 
-        $html .= '</div>';
+        $html .= '</ul>';
 
         return $html;
     }
