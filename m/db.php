@@ -46,18 +46,18 @@ function encode_clean(string $data): string {
     return htmlentities(trim($data), ENT_QUOTES, 'UTF-8');
 }
 
-function rate_limit() {
-	if (isset($_SESSION['LAST_CALL'])) {
-		$last = strtotime($_SESSION['LAST_CALL']);
+function rate_limit(string $thing = "", int $max_seconds = 12) {
+	if (isset($_SESSION['LAST_CALL' . $thing])) {
+		$last = strtotime($_SESSION['LAST_CALL'. $thing]);
 		$curr = strtotime(date("Y-m-d h:i:s"));
 		$sec =  abs($last - $curr);
-		if ($sec <= 12) { // rate limit
+		if ($sec <= $max_seconds) { // rate limit
 		  $data['Error'] = 'Rate Limit Exceeded'; 
 		  echo json_encode($data);
 		  exit;	
 		}
 	}
-	$_SESSION['LAST_CALL'] = date("Y-m-d h:i:s");
+	$_SESSION['LAST_CALL' . $thing] = date("Y-m-d h:i:s");
 }
 
 function make_session_started() {

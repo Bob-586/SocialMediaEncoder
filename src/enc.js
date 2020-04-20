@@ -260,6 +260,39 @@ function btn_dec() {
    }
 }
 
+function get_hyper_links(s_text) {
+    var tt = s_text.trim();
+    if (tt.indexOf("http://") === 0 || tt.indexOf("https://") === 0) {
+        return '<a href="'+tt+'" target="_blank" class="linkmsg">Link To: '+tt+'</a> &nbsp;';
+    }
+    return false;
+}
+
+function get_reformatted(s_text) {
+    var tt = s_text.trim();
+    if (tt.indexOf("[") === 0 && tt.indexOf("]") === tt.length -1) {
+        return '<b>'+s_text+'</b>';
+    }
+    if (tt.indexOf("(") === 0 && tt.indexOf(")") === tt.length -1) {
+        return '<i>'+s_text+'</i>';
+    }
+    if (tt.indexOf("{") === 0 && tt.indexOf("}") === tt.length -1) {
+        return '<del>'+s_text+'</del>';
+    }
+    if (tt.indexOf("---") !== -1) {
+        return s_text.replace(/-{2,}/g, "<hr class=\"msghr\">"); // Replace Dashes w/ HR
+    }
+    return s_text;
+}
+
+function format_text(s_text) {
+    var links = get_hyper_links(s_text);
+    if (links !== false) {
+        return links;
+    }
+    return get_reformatted(s_text);
+}
+
 function do_dec(text, pwd) {
    var s = atob(text);
    var j = JSON.parse(s);
@@ -305,9 +338,9 @@ function do_dec(text, pwd) {
        } 
        var n = order[i].n; // Get index of new word
        if (v !== "1") {
-           ret += unhideme(mode, pork[n], pwd + ds);
+           ret += format_text(unhideme(mode, pork[n], pwd + ds));
        } else {
-           ret += unhideme(mode, j[n], pwd + ds);
+           ret += format_text(unhideme(mode, j[n], pwd + ds));
        }
    }
    return ret;  

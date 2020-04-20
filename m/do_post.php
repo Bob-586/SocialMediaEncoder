@@ -13,7 +13,7 @@ $track = $_POST['track'] ?? false;
 
 header('Content-Type: application/json');
 
-rate_limit();
+rate_limit("_post");
 
 sleep(2);
 

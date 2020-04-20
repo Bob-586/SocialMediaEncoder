@@ -39,6 +39,8 @@ function post() {
                 var obj = JSON.parse(json);
                 if (obj.hasOwnProperty('Failed')) {
                     document.getElementById('msg').innerHTML = obj.Failed;
+                } else if (obj.hasOwnProperty('Error')) {
+                    document.getElementById('msg').innerHTML = obj.Error;    
                 } else {
                     if (obj.hasOwnProperty('Success') && obj.hasOwnProperty('id')) {
                         var id = obj.id;
@@ -153,6 +155,7 @@ function feed_fetch(id, vc) {
                     list.appendChild(span);
                 }                
                 var hr = document.createElement('hr');
+                hr.className = "feedhr";
                 list.appendChild(hr);
            } else {
                 document.getElementById('wait').innerHTML = "No Results Found";
@@ -203,6 +206,7 @@ function feed_fetchs(page_no, limit) {
                         list.appendChild(span);
                     }
                     var hr = document.createElement('hr');
+                    hr.className = "feedhr";
                     list.appendChild(hr);
                }
            }

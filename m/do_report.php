@@ -1,10 +1,11 @@
 <?php
+header('Content-Type: application/json');
 
 require_once 'db.php';
 
 make_session_started();
 
-rate_limit();
+rate_limit("_abuse", 200);
 
 sleep(2);
 
@@ -12,39 +13,51 @@ $max_allowed_strikes = 5;
 
 $id = $_POST['id'] ?? false;
 if ($id === false || $id === '') {
-    echo "Failure";
-    exit;    
+    $data['Failed'] = 'Opps!'; 
+    echo json_encode($data);
+    exit;  
 }
 
 $safe_id = encode_clean($id);
 if (! filter_var($safe_id, FILTER_VALIDATE_INT)) {
-    echo "Failure";
-    exit;     
+    $data['Failed'] = 'Opps!'; 
+    echo json_encode($data);
+    exit;  
 }
 
 $flag = $_POST['flag'] ?? false;
 if ($flag === false || $flag === '') {
-    echo "Failure";
-    exit;    
+    $data['Failed'] = 'No Flags'; 
+    echo json_encode($data);
+    exit;   
 }
 $safe_flag = encode_clean($flag);
 
 $pdo = get_db();
 
 try {
-    $sql = "SELECT `flags` FROM `posts` WHERE `approved`='Y' && `id`=:id LIMIT 1";
+    $sql = "SELECT `flags`, `approved` FROM `posts` WHERE `id`=:id LIMIT 1";
     $pdostmt = $pdo->prepare($sql);
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
     $count = $pdostmt->rowCount();
     if ($count === 1) {
-        $cm = $pdostmt->fetch(\PDO::FETCH_COLUMN);
-        $flags = (! empty($cm)) ? json_decode($cm, false) : new stdClass;
+        $cm = $pdostmt->fetch(\PDO::FETCH_OBJ);
+        if ($cm->approved === "N") { // Don't HINT at LIMIT
+           $data['Success'] = 'Marked for Abuse, this will be reviewed by admins!'; 
+           echo json_encode($data);
+           exit;   
+        }
+        $flags = (! empty($cm->flags)) ? json_decode($cm->flags, false) : new stdClass;
     } else {
-        $flags = new stdClass;
+        $data['Failed'] = 'Post was Removed!'; 
+        echo json_encode($data);
+        exit; 
     }
 } catch (\PDOException $e) {
-    $flags = new stdClass;
+    $data['Failed'] = 'Opps!'; 
+    echo json_encode($data);
+    exit; 
 }  
 
 $a_flags = $flags;
@@ -60,8 +73,10 @@ try {
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
 } catch (\PDOException $e) {
-    echo "Failure";
-    exit;
+    $data['Failed'] = 'Opps!'; 
+    echo json_encode($data);
+    exit;  
 }  
 
-echo "Marked for Abuse, this will be reviewed by admins!";
+$data['Success'] = "Marked for Abuse, this will be reviewed by admins!";
+echo json_encode($data);

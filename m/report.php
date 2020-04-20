@@ -59,8 +59,15 @@ function report(me) {
     if (confirm("Are you absolutly sure of " + v + " was a valid violation on them?")) {
     
         if (me.value !== "" && report_id > 0) {
-            postAjax('do_report.php', { id: report_id, flag: me.value }, function(data) {
-                alert(data);
+            postAjax('do_report.php', { id: report_id, flag: me.value }, function(json) {
+                var obj = JSON.parse(json);
+                if (obj.hasOwnProperty('Failed')) {
+                    alert(obj.Failed);
+                } else if (obj.hasOwnProperty('Error')) {
+                    alert(obj.Error);
+                } else if (obj.hasOwnProperty('Success')) {
+                    alert(obj.Success);
+                }
             });
         }
     

@@ -19,9 +19,19 @@
    list-style: none;
 }
 
-hr { 
+.feedhr { 
   border : 0;
   border-top: 3px double #DC143C;
+}
+
+.msghr { 
+  border : 0;
+  border-top: 8px double greenyellow;
+}
+
+.linkmsg {
+    background-color: #ddd;
+    color: #DC143C;
 }
 
 .clipboard {

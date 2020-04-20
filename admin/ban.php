@@ -6,7 +6,7 @@ make_session_started();
 
 header('Content-Type: application/json');
 
-rate_limit();
+rate_limit("_ban");
 
 sleep(2);
 
