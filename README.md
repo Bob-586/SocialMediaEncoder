@@ -38,6 +38,7 @@ what is good these days. VPN, maybe??
 - [x] Block re-encoding same encrypted info twice
 
 Don't Forget to: Import the following SQL files, to setup your MySQL Database.
+
 [sme_db.sql](m/sme_db.sql)
 
 [sme_admin_table.sql](admin/sme_admin_table.sql)
