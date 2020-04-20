@@ -22,7 +22,16 @@ require_once 'start_html.php';
 
 #feed_update_list li {
    list-style: none;
-}    
+}
+.feedhr { 
+  border : 0;
+  border-top: 3px double #DC143C;
+}
+
+.msghr { 
+  border : 0;
+  border-top: 8px double greenyellow;
+}
 </style>
 <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
 <?php
@@ -39,9 +48,17 @@ require_once '../m/paginate.php';
 
 $pdo = get_db();
 
-$sql = "SELECT `id`, `cypher`, `flags` FROM `posts` WHERE `approved`='Y' && `has_pwd`='N' ORDER BY `ts` DESC";
 $limit = $_GET['limit'] ?? 3;
 $page = $_GET['page'] ?? 1;
+$see_banned = $_GET['see_banned'] ?? false;
+$approved = ($see_banned === false || $see_banned === "N") ? "Y" : "N";
+if ($see_banned === "all") {
+    $do = "all";
+    $status = "";
+} else {
+    $do = $approved;
+    $status ="`approved`='{$approved}' && ";
+}
 
 if (! filter_var($limit, FILTER_VALIDATE_INT)) {
     $limit = 10;
@@ -49,8 +66,9 @@ if (! filter_var($limit, FILTER_VALIDATE_INT)) {
 if (! filter_var($page, FILTER_VALIDATE_INT)) {
     $page = 1;
 }
-
+$sql = "SELECT `id`, `cypher`, `flags`, `approved` FROM `posts` WHERE {$status}`has_pwd`='N' ORDER BY `ts` DESC";
 $pag = new paginate($pdo, $sql);
+$pag->set_links(['see_banned'=>$do]);
 $results = $pag->get_data($limit, $page); 
 $links = $pag->create_jump_menu_with_links();
 ?>
@@ -73,7 +91,7 @@ function postAjax(url, data, success) {
     xhr.send(params);
     return xhr;
 }    
-function grab_text(data, id, flags) { 
+function grab_text(data, id, flags, approved) { 
     var dec = do_dec(data, ''); 
     var breaks = dec.replace(/(?:\r\n|\r|\n)/g, '<br>');
     var ix = flags.length;
@@ -88,8 +106,12 @@ function grab_text(data, id, flags) {
     
     var list = document.getElementById('feed_update_list');
     var entry = document.createElement('li');
-    
-    var reporting_abuse = "<br><span id='ban-"+id+"'></span><button onclick='ban(\""+id+"\", this);'>Ban</button>";
+    if (approved === "Y") {
+        var text = "BAN";
+    } else {
+        var text = "UN-BAN";
+    }
+    var reporting_abuse = "<br><span id='ban-"+id+"'></span><button onclick='ban(\""+id+"\", this, \""+approved+"\");'>"+text+"</button>";
     breaks += reporting_abuse;
     
     entry.innerHTML = breaks.trim();
@@ -97,23 +119,33 @@ function grab_text(data, id, flags) {
     var hr = document.createElement('hr');
     list.appendChild(hr);
 }
-function ban(id, me) {
-    var x = confirm("Are you sure you want to BAN this message?");
+function ban(id, me, approved) {
+    if (approved === "Y") {
+        var text = "BAN";
+        var toggle = "N";
+    } else {
+        var text = "UN-BAN";
+        var toggle = "Y";
+    }
+    var x = confirm("Are you sure you want to "+text+" this message?");
     if (x === true) {
-        postAjax("ban.php", { approved: 'N', id: id }, function(data) {
+        postAjax("ban.php", { approved: toggle, id: id }, function(data) {
             alert(data);
         });
-        document.getElementById("ban-"+id).innerHTML = "Has Been BANNED!";
+        document.getElementById("ban-"+id).innerHTML = "Has Been "+text+"NED!";
         me.style.display = "none";
     }
 }
 
 <?php    
 foreach($results->data as $row) {
-    echo "grab_text('{$row['cypher']}', '{$row['id']}', '{$row['flags']}');";
+    echo "grab_text('{$row['cypher']}', '{$row['id']}', '{$row['flags']}', '{$row['approved']}');";
 }
 ?>
 </script>
+
+<a href="?see_banned=<?= $approved ?>">View only <?= ($approved === "N") ? "Approved" : "BANNED"; ?></a>
+&nbsp; &nbsp; <a href="?see_banned=all">View ALL</a>&nbsp; &nbsp; 
 <?php
 
 echo $links;
