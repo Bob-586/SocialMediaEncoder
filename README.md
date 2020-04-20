@@ -2,6 +2,8 @@
 
 ## This project's aim is to BYPASS big techs *Automatic* _Censorship_ efforts, ONLY!
 
+[Install Instructions, click HERE](INSTALL.txt)
+
 [For info about usage/how it all works](VERSION.txt)
 
 #### *** It does NOT keep any secrets!! *** 
@@ -24,7 +26,7 @@ what is good these days. VPN, maybe??
 - [x] Users can report abuses, 5 abuses of same kind = auto-ban
 - [x] Rate Limited posts
 - [x] Easy Minify all JavaScript with gulp v4
-- [x] Requires PHP version 7.x
+- [x] Requires PHP version 7.x, MySQL 8
 - [x] Short URLs requires Apache2 or you to write custom code for Nginx, etc...
 - [x] Added LGPLv3 logo
 - [x] Change the image sample.png to re-brand with your own site/humor/meme

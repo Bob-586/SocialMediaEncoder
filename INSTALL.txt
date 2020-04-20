@@ -1,0 +1,64 @@
+If your have ssh access: Clone this project via:
+$ cd /var/www
+$ git clone https://github.com/Bob-586/SocialMediaEncoder.git sme
+
+ELSE, just download the ZIP file, via:
+https://github.com/Bob-586/SocialMediaEncoder/archive/master.zip and FTP it over.
+
+#### Setup: Database Credentials in Ubuntu Linux - Apache2 for MySQL use
+If you have root access:
+$ sudo nano /etc/apache2/conf-available/sme.conf
+SetEnv m_db_type mysql
+SetEnv m_db_host localhost
+SetEnv m_db_port 3306
+SetEnv m_db_name sme
+SetEnv m_db_user sme_user
+SetEnv m_db_pass YOUR_SECRET_PASSWORD_GOES_HERE
+
+$ sudo a2enconf sme
+$ sudo service apache2 restart
+
+ELSE, non-root acccess, do the following:
+Modify the file: sme/m/db.php , with an text editor, go to the get_db function to change it:
+function get_db(bool $show_errors = false) {
+    $db_info = [
+          'TYPE' => getenv('m_db_type'), // CHANGE ME TO: "mysql"
+          'HOST' => "localhost",
+          'PORT' => 3306,
+          'NAME' => "sme",
+          'USER' => "sme_user",
+          'PASS' => "YOUR_SECRET_PASSWORD_GOES_HERE" // Be aware of escaped chars like $, /, ", and ' could become an issue
+    ];
+FTP, over the edited file: sme/m/db.php
+
+#### Don't forget, to create the DB and sme_user for it.
+sme_user should only be granted SELECT, UPDATE, INSERT permissions.
+
+import the following SQL files:
+[sme_db.sql](m/sme_db.sql)
+[sme_admin_table.sql](admin/sme_admin_table.sql)
+
+#### To modify JavaScript/CSS files run:
+Assuming sme, is the git project folder, made:
+$ cd /var/www/sme
+$ gulp watch
+
+-----------------------------
+Ensure all folder and files have proper permissions...it should be if git cloned. 
+www-data is the default apache user on my system.
+
+Ensure you belong to www-data: $ groups Your_USERNAME_HERE
+If not, do: $ usermod -g www-data Your_SERNAME_HERE
+
+Folders should be: drwxrwxr-x  YOURUSERNAME www-data
+If not, do: $ chmod 775 /var/www/sme/
+
+Files should be: -rw-rw-r--  YOURUSERNAME www-data
+If not, do: $ chmod 664 /var/www/sme/Your_FILE_NAME_HERE
+
+To see Social Media Encoder - Feed, go to your local site:
+http://127.0.0.1/sme/m/
+
+OR if, live:
+
+yoursite.com/sme/m
