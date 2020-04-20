@@ -89,9 +89,9 @@ $styles = [
 ];
 
 $cursive = [
-    "Normal_Text" => "",
+    "Default Font" => "",
     "Girassol_Title_Text" => "font-family: 'Girassol', cursive;",
-    "Cursive" => "font-family: 'Dancing Script', cursive;",
+    "Dancing Script" => "font-family: 'Dancing Script', cursive;",
     "Permanent_Marker" => "font-family: 'Permanent Marker', cursive;",
     "Gochi_Hand" => "font-family: 'Gochi Hand', cursive;",
     "Amiri" => "font-family: 'Amiri', serif;"
@@ -111,10 +111,10 @@ for($size = 16; $size < 47; $size++ ) {
 <section>
 <fieldset>
     <legend>Customize Message Style</legend>
-<label for="cursive">Use Cursive</label><select id="cursive" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($cursive); ?></select>
-<label for="align">Text Align</label><select id="align" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($text_align); ?></select>
-<label for="size">Font Size</label><select id="size" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($fonts_size, '20'); ?></select>
-<label for="color">Colors</label><select id="color" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($styles); ?></select>
+<label for="cursive">Use Font</label> <select id="cursive" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($cursive); ?></select>
+<label for="align">Text Align</label> <select id="align" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($text_align); ?></select>
+<label for="size">Font Size</label> <select id="size" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($fonts_size, '20'); ?></select>
+<label for="color">Colors</label> <select id="color" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($styles); ?></select>
 
 <p id="sample-text" style="display: none;">
     Sample Text , Welcome . . . .<br>

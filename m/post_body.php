@@ -22,7 +22,7 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
                 <br>
                 <input type="checkbox" id="track" value="true" <?= $track ?>/><label for="track">Remember my posts</label>
 <?php if ($track === "checked") { ?>                
-                &nbsp; &nbsp; <a href="relookat.php">Re-Look-At-Your-Past-Posts</a>
+                &nbsp; &nbsp; &nbsp; &nbsp; <a href="relookat.php">Re-Look-At-Your-Past-Posts</a>
 <?php } ?>                
                 <br>
                 <button onclick="show_vkb(); return false;" id="btn-svkb">Show Virtual Keyboard, to avoid key stroke logging</button>
