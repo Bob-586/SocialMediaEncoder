@@ -73,5 +73,29 @@ function make_session_started() {
 function has_role(string $role = 'admin'): bool {
     $user = ($role === "admin") ? "adm_user_id" : "user_id";
     $id = $_SESSION[$user] ?? 0;
-    return ($id > 0) ? true : false;
+    
+    if ($id > 0) {
+        return true; // Admin, found
+    }
+    $lock = "admin.lock";
+    if(file_exists($lock)) {
+        return false; // No Admin found
+    }
+    
+    $sql = "SELECT `id` FROM `admin_users` WHERE `enabled`='Y' LIMIT 1";
+    try {
+      $pdo = get_db();  
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $row_cnt = $stmt->rowCount();
+      if ($row_cnt === 0) {
+          return true; // Allow, access as NO-USER is setup nor enabled
+      }
+      return false; // No Admin found
+    } catch (\PDOException $e) {
+      echo "Opps!";
+//      echo $e->getMessage();
+      exit;
+    }
+    
 }

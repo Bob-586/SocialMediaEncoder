@@ -26,6 +26,9 @@ function add_user(array $a): void {
         $pdostmt->bindParam(':user_name', $user_name, \PDO::PARAM_STR);       
         $pdostmt->bindParam(':password', $db_pwd_hash, \PDO::PARAM_STR);
         $pdostmt->execute();
+        
+        $lock = "admin.lock";
+        touch($lock);
         echo 'Added new User!<br/>';
     } catch (\PDOException $e) {
         echo $e->getMessage();
