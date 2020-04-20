@@ -1,4 +1,4 @@
-If your have ssh access: Clone this project via:
+If you have ssh access: Clone this project via:
 $ cd /var/www
 $ git clone https://github.com/Bob-586/SocialMediaEncoder.git sme
 
@@ -34,7 +34,7 @@ FTP, over the edited file: sme/m/db.php
 #### Don't forget, to create the DB and sme_user for it.
 sme_user should only be granted SELECT, UPDATE, INSERT permissions.
 
-import the following SQL files:
+Import the following SQL files:
 [sme_db.sql](m/sme_db.sql)
 [sme_admin_table.sql](admin/sme_admin_table.sql)
 
