@@ -36,6 +36,7 @@ function post() {
             var styles = get_styles();
             var tags = document.getElementById('tags').value;
             postAjax('do_post.php', { enc: ret, pass: l, style: styles, tags: tags, track: track }, function(json){
+                document.getElementById('post').disabled = false;
                 var obj = JSON.parse(json);
                 if (obj.hasOwnProperty('Failed')) {
                     document.getElementById('msg').innerHTML = obj.Failed;
@@ -55,7 +56,6 @@ function post() {
                         
                         var msg = obj.Success + ". Your Link is: " + url_clean + id + ds;
                         document.getElementById('msg').innerHTML = msg;
-                        document.getElementById('post').disabled = false;
                         document.getElementById('enc').value = "";
                     }
                 }
