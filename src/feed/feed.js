@@ -15,7 +15,9 @@ function postAjax(url, data, success) {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(function(resolve) {
+        setTimeout(resolve, ms);
+    });
 }
 
 function post() {
@@ -26,7 +28,7 @@ function post() {
     }
     document.getElementById('post').disabled = true;
     document.getElementById('msg').innerHTML = "Posting....";
-    sleep(2500).then(() => {
+    sleep(2500).then(function() {
         var enc = document.getElementById('enc').value;
         var pwd = document.getElementById('pwd').value;
         var track = document.getElementById('track').checked;
