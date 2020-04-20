@@ -38,6 +38,9 @@ Import the following SQL files:
 [sme_db.sql](m/sme_db.sql)
 [sme_admin_table.sql](admin/sme_admin_table.sql)
 
+NOTE: Do, sme_db.sql First as it creates the Database sme, if it does not exist yet.
+Some, Control Panels, require you to setup the database sme before using that SQL file!
+
 #### To modify JavaScript/CSS files run:
 Assuming sme, is the git project folder, made:
 $ cd /var/www/sme
@@ -48,7 +51,7 @@ Ensure all folder and files have proper permissions...it should be if git cloned
 www-data is the default apache user on my system.
 
 Ensure you belong to www-data: $ groups Your_USERNAME_HERE
-If not, do: $ usermod -g www-data Your_SERNAME_HERE
+If not, do: $ usermod -g www-data Your_USERNAME_HERE
 
 Folders should be: drwxrwxr-x  YOURUSERNAME www-data
 If not, do: $ chmod 775 /var/www/sme/

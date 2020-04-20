@@ -39,6 +39,10 @@ what is good these days. VPN, maybe??
 
 Don't Forget to: Import the following SQL files, to setup your MySQL Database.
 [sme_db.sql](m/sme_db.sql)
+
 [sme_admin_table.sql](admin/sme_admin_table.sql)
+
+NOTE: Do, sme_db.sql First as it creates the Database sme, if it does not exist yet.
+Some, Control Panels, require you to setup the database sme before using that SQL file!
 
 [Here again, is the Install, Instructions](INSTALL.txt)
