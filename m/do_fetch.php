@@ -26,6 +26,12 @@ try {
     $pdostmt->bindParam(':id', $safe_id, \PDO::PARAM_INT);
     $pdostmt->execute();
     
+    $count = $pdostmt->rowCount();
+    if ($count === 0) {
+        echo json_encode(["Failed" => "No Message Found!"]);
+        exit;     
+    }
+    
     $obj = $pdostmt->fetch(\PDO::FETCH_OBJ);
     if ($obj->approved === "N") {
         echo json_encode($obj);
