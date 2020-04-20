@@ -21,7 +21,9 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
                 <input type="password" id="pwd" /><label for="pwd">*(optional) Password for Group</label>
                 <br>
                 <input type="checkbox" id="track" value="true" <?= $track ?>/><label for="track">Remember my posts</label>
+<?php if ($track === "checked") { ?>                
                 &nbsp; &nbsp; <a href="relookat.php">Re-Look-At-Your-Past-Posts</a>
+<?php } ?>                
                 <br>
                 <button onclick="show_vkb(); return false;" id="btn-svkb">Show Virtual Keyboard, to avoid key stroke logging</button>
                 <button onclick="this.style.display='none'; document.getElementById('gpl').style.display='none'; document.getElementById('enc').style.width = '95%';">Full Screen - My Message Box</button>
