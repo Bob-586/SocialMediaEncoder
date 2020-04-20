@@ -116,7 +116,6 @@ for($size = 16; $size < 47; $size++ ) {
 <label for="size">Font Size</label><select id="size" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($fonts_size, '20'); ?></select>
 <label for="color">Colors</label><select id="color" onchange="document.getElementById('sample-text').style = get_styles();"><?= do_options_backwards($styles); ?></select>
 
-<label for="tags">Hash Tags</label><input type="text" id="tags" maxlength="200" />
 <p id="sample-text" style="display: none;">
     Sample Text , Welcome . . . .<br>
     Line #2 , More TEXT for you !
@@ -127,6 +126,9 @@ for($size = 16; $size < 47; $size++ ) {
 <script type="text/javascript">
     /* Set Cookie */
     function sme_set_cookie(cname, cvalue, exdays) {
+        if (!localStorage.getItem('cookieconsent')) {
+            return "";
+        }
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+d.toUTCString();
@@ -155,10 +157,14 @@ for($size = 16; $size < 47; $size++ ) {
         me.selectedIndex = index;
     }
     
-    function get_styles() {
+    function remember_styles() {
         var oj = { cursive: get_index_from_cbo('cursive'), align: get_index_from_cbo('align'), size: get_index_from_cbo('size'), color: get_index_from_cbo('color') };
         var s = btoa(JSON.stringify(oj));
         sme_set_cookie('sme_r_styles', s, 2);
+    }
+    
+    function get_styles() {
+        remember_styles();
         return document.getElementById('cursive').value + document.getElementById('align').value + document.getElementById('size').value + document.getElementById('color').value; 
     }
     
@@ -171,5 +177,22 @@ for($size = 16; $size < 47; $size++ ) {
         set_index_for_cbo('size', j.size);
         set_index_for_cbo('color', j.color);
     }
-    
+</script>
+
+<script type="text/javascript">
+(function() {
+	if (!localStorage.getItem('cookieconsent')) {
+		document.body.innerHTML += '\
+		<div class="cookieconsent" style="position:fixed;padding:20px;left:0;bottom:0;background-color:#000;color:#FFF;text-align:center;width:100%;z-index:99999;">\
+			This site uses cookies. By continuing to use this website, you agree to their use. \
+			<a href="#" style="color:#CCCCCC;">I Understand</a>\
+		</div>\
+		';
+		document.querySelector('.cookieconsent a').onclick = function(e) {
+			e.preventDefault();
+			document.querySelector('.cookieconsent').style.display = 'none';
+			localStorage.setItem('cookieconsent', true);
+		};
+	}
+})();    
 </script>    

@@ -9,6 +9,7 @@ $pass = $_POST['pass'] ?? "N";
 $has_passowrd = ($pass === "true") ? "Y" : "N";
 $style = $_POST['style'] ?? "";
 $tags = $_POST['tags'] ?? "";
+$track = $_POST['track'] ?? false;
 
 header('Content-Type: application/json');
 
@@ -40,7 +41,27 @@ try {
     $data['Error'] = 'Unable to Save'; 
     echo json_encode($data);
     exit;
-}  
+}
+
+if ($track === "true") {
+    $cookie_name = "sme_posts";
+    if(!isset($_COOKIE[$cookie_name])) {
+        $cookie_value = "";
+    } else {
+        $cookie_value = $_COOKIE[$cookie_name] ?? "";
+    }
+    
+    if (! empty($cookie_value)) {
+        $a_ids = json_decode(base64_decode($cookie_value), true);
+    } else {
+        $a_ids = [];
+    }
+    $a_ids[] = $id;
+    
+    $b = base64_encode(json_encode($a_ids));
+    
+    setcookie($cookie_name, $b, time() + (86400 * 30), "/"); // 86400 = 1 day
+}
 
 try {
     $sql = "SELECT DATE_FORMAT(ts, '%y-%c-%e-%H-%i') as ds FROM `posts` WHERE `id`=:id LIMIT 1";

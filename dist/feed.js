@@ -29,12 +29,13 @@ function post() {
     sleep(2500).then(() => {
         var enc = document.getElementById('enc').value;
         var pwd = document.getElementById('pwd').value;
+        var track = document.getElementById('track').checked;
         var l = (pwd.length >0);
         try {
             var ret = do_enc('xor', 'des', enc, pwd);
             var styles = get_styles();
             var tags = document.getElementById('tags').value;
-            postAjax('do_post.php', { enc: ret, pass: l, style: styles, tags: tags }, function(json){
+            postAjax('do_post.php', { enc: ret, pass: l, style: styles, tags: tags, track: track }, function(json){
                 var obj = JSON.parse(json);
                 if (obj.hasOwnProperty('Failed')) {
                     document.getElementById('msg').innerHTML = obj.Failed;
