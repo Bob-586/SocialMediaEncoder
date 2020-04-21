@@ -30,10 +30,12 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
             </fieldset>
             </section>
             <div class="simple-keyboard" id="dvkb" style="display: none;"></div>
-            <?php require_once 'style.php'; ?>
+            <div id="styles"></div>
             <br>
             <button onclick="post();" id="post" class="uk-button uk-button-main uk-button-small">Post</button>
             <span id="msg"></span>
         </div>
 </fieldset>
 </section>
+
+<script type="text/javascript" src="../dist/post_styles.min.js"></script>    

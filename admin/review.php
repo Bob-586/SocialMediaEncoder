@@ -63,6 +63,9 @@ if ($see_banned === "all") {
 if (! filter_var($limit, FILTER_VALIDATE_INT)) {
     $limit = 10;
 }
+if ($limit > 11) {
+    $limit = 10; // Don't go nutts with Cypher-Text!
+}
 if (! filter_var($page, FILTER_VALIDATE_INT)) {
     $page = 1;
 }

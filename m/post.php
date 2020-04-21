@@ -1,3 +1,4 @@
+<?php require_once 'compression.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>

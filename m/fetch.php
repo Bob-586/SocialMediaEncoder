@@ -1,4 +1,7 @@
 <?php 
+
+require_once 'compression.php'; 
+
 $vc = $_GET['vc'] ?? '';
 $id = $_GET['id'] ?? '';
 ?>
