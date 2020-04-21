@@ -24,7 +24,7 @@
         <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
     </head>
     <body>
-        <div id="posting"><a href="#Post">Just POST a new Message</a></div>
+        <div id="posting"><a href="#Post" class="uk-button uk-button-secondary uk-button-large">POST new Message</a></div>
         <div id="unhidepost"></div>
         
         <div id="pag-links"></div>
