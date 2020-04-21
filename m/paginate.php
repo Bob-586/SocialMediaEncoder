@@ -83,7 +83,7 @@ class paginate {
         $html = '<ul class="' . $list_class . '">';
  
         if ( $this->_page == 1 ) {
-            $html .= '<li class="' . $class_disabled . '"><a href="#">&laquo;</a></li>';
+            $html .= '<li class="' . $class_disabled . '"><a href="' .  $this->_href_page . "1" . $this->_href_limit . $this->_limit . $this->_links . '">&laquo;</a></li>';
         } else {
             $html .= '<li class="' . $class . '"><a href="' .  $this->_href_page . ( $this->_page - 1 ) . $this->_href_limit . $this->_limit . $this->_links . '">&laquo;</a></li>';
         }
