@@ -8,7 +8,7 @@ function sanitize_output($buffer) {
         '/(\s)+/s',         // shorten multiple whitespace sequences
         '/<!--(.|\s)*?-->/', // Remove HTML comments
         '/\/(\*)[^*]*\*+(?:[^*\/][^*]*\*+)*\//',    // Remove JS block comments
-        '/\/(\/)[^\n]*$/'
+        '#^\s*//.+$#m' // Remove JS single line comment
     );
 
     $replace = array(
