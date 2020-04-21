@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../dist/uikit.min.css">
         <link rel="stylesheet" href="../dist/feed.min.css">
-        <link rel="stylesheet" href="../dist/vkb.css">
+        <link rel="stylesheet" href="../dist/vkb.min.css">
         <?php require_once 'fonts.php'; ?>
         <script type="text/javascript">
             var uri = window.location.href.toString();

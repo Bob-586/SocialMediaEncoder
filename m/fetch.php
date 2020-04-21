@@ -14,6 +14,11 @@ $id = $_GET['id'] ?? '';
         <link rel="stylesheet" href="../dist/uikit.min.css">
         <link rel="stylesheet" href="../dist/feed.min.css">
         <?php require_once 'fonts.php'; ?>
+        <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+        <link rel="icon" type="image/gif" sizes="16x16" href="../images/favicon/binary.gif">        
+        <link rel="manifest" href="../manifest.json">        
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
         <script type="text/javascript" src="../dist/feed.min.js"></script>
         <script type="text/javascript">
