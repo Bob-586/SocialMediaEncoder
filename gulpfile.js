@@ -20,6 +20,7 @@ function js() {
 function watch_all() {
     watch('src/*.js', { events: 'all' }, js);
     watch('src/feed/post_styles.js', { events: 'all' }, js_styles);
+    watch('src/feed/route.js', { events: 'all' }, js_route);
     watch('src/feed/feed.js', { events: 'all' }, js_feed);
     watch('src/feed/feed.css', { events: 'all' }, css_feed);
 }
@@ -29,6 +30,15 @@ function js_styles() {
     .pipe(uglify())
     .pipe(lzmajs(9))
     .pipe(concat('post_styles.min.js'))    
+    .pipe(dest('dist', { sourcemaps: false }))
+    .on('error', console.error.bind(console));
+}
+
+function js_route() {
+     return src('src/feed/route.js', { sourcemaps: false })
+    .pipe(uglify())
+    .pipe(lzmajs(9))
+    .pipe(concat('route.min.js'))    
     .pipe(dest('dist', { sourcemaps: false }))
     .on('error', console.error.bind(console));
 }
@@ -52,7 +62,8 @@ function css_feed() {
 
 exports.js = js;
 exports.js_styles = js_styles;
+exports.js_route = js_route;
 exports.js_feed = js_feed;
 exports.css_feed = css_feed;
 exports.watch = watch_all;
-exports.default = series( parallel(js, js_styles, js_feed, css_feed), watch_all );
+exports.default = series( parallel(js, js_styles, js_route, js_feed, css_feed), watch_all );

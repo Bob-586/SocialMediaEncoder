@@ -33,9 +33,8 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
             <div id="styles"></div>
             <br>
             <button onclick="post();" id="post" class="uk-button uk-button-main uk-button-small">Post</button>
+            <div style="float: right;"><button onclick="hide_post();">Done - Hide Me</button></div>
             <span id="msg"></span>
         </div>
 </fieldset>
 </section>
-
-<script type="text/javascript" src="../dist/post_styles.min.js"></script>    

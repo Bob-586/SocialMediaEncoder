@@ -32,18 +32,13 @@ function handleShift() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('main').style.visibility = "visible"; 
-    if (screen.width < 1080) {
-        var x = document.getElementsByClassName('nomobile');
-        var i;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-        }
-    }            
-});
-
 function show_vkb() {
-   document.getElementById('dvkb').style.display = "block";
-   document.getElementById('btn-svkb').style.display = "none";
-}
+   var sq = document.getElementById('dvkb').style.display;
+   if (sq === "block") {
+        document.getElementById('dvkb').style.display = "none";
+        document.getElementById('btn-svkb').innerHTML = "Show Virtual Keyboard, to avoid key stroke logging";   
+   } else {
+        document.getElementById('dvkb').style.display = "block";
+        document.getElementById('btn-svkb').innerHTML = "Hide Virtual Keyboard";       
+   }
+}    
