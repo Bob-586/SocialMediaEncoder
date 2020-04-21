@@ -33,8 +33,11 @@
         <div id="feed_container">
                <ul id="feed_update_list"></ul>
         </div>
-        
+
         <?php require_once 'report.php'; ?>
+        
+        <footer><div id="footer-pag-links" style="display: none;"></div></footer>
+        
         <script type="text/javascript" src="../dist/post_styles.min.js"></script>
         <script type="text/javascript" src="../dist/route.min.js"></script>
     </body>

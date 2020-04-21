@@ -45,12 +45,15 @@ var router = new Grapnel();
 router.on('navigate', function() {
        document.getElementById('wait').innerHTML = "";
 });
+
 var did_feed = false;
 router.get('Page/:page/:limit', function (req) {
         did_feed = true;
+        document.getElementById('footer-pag-links').style.display = "none";
         document.getElementById('wait').innerHTML = "Decoding your Message...<b>((Please wait a few seconds))...</b>!";
         postAjax('links.php', { show: true, page: req.params.page, limit: req.params.limit }, function(data) {
             document.getElementById('pag-links').innerHTML = data;
+            document.getElementById('footer-pag-links').innerHTML = data;
         });
         document.getElementById('feed_update_list').innerHTML = "";
         feed_fetchs(req.params.page, req.params.limit);

@@ -178,6 +178,7 @@ function feed_fetchs(page_no, limit) {
            entry.innerHTML = "No more Messages Found!";
            list.appendChild(entry);
        } else {
+           document.getElementById('footer-pag-links').style.display = "block";
            for(var zz=0; zz < obj.length; zz++) {
                var styles = "";
                if (obj[zz].hasOwnProperty('style')) {
