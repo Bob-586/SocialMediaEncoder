@@ -32,14 +32,16 @@ function load_keyboard() {
         script.type = "text/javascript";
         script.src = "../dist/vkb.min.js";
         elm.parentNode.insertBefore(script, elm);
-        var script2 = document.createElement('script');
-        script2.type = "text/javascript";
-        script2.src = "../dist/keyboard_layout.js";
-        elm.parentNode.insertBefore(script2, elm);
+        sleep(1100).then(function() {
+            var script2 = document.createElement('script');
+            script2.type = "text/javascript";
+            script2.src = "../dist/keyboard_layout.js";
+            elm.parentNode.insertBefore(script2, elm);
+        });
         loaded_keyboard = true;
     } 
 }            
-            
+
 var router = new Grapnel();            
 
 router.on('navigate', function() {
