@@ -50,9 +50,10 @@ $pdo = get_db();
 
 $limit = $_GET['limit'] ?? 3;
 $page = $_GET['page'] ?? 1;
-$see_banned = $_GET['see_banned'] ?? false;
-$approved = ($see_banned === false || $see_banned === "N") ? "Y" : "N";
-if ($see_banned === "all") {
+$show_approved = $_GET['show_approved'] ?? false;
+$approved = ($show_approved === false) ? "Y" : $show_approved;
+$toggle = ($approved === "N") ? "Y" : "N";
+if ($show_approved === "all") {
     $do = "all";
     $status = "";
 } else {
@@ -71,7 +72,7 @@ if (! filter_var($page, FILTER_VALIDATE_INT)) {
 }
 $sql = "SELECT `id`, `cypher`, `flags`, `approved` FROM `posts` WHERE {$status}`has_pwd`='N' ORDER BY `ts` DESC";
 $pag = new paginate($pdo, $sql);
-$pag->set_links(['see_banned'=>$do]);
+$pag->set_links(['show_approved'=>$do]);
 $results = $pag->get_data($limit, $page); 
 $links = $pag->create_jump_menu_with_links();
 ?>
@@ -147,8 +148,8 @@ foreach($results->data as $row) {
 ?>
 </script>
 
-<a href="?see_banned=<?= $approved ?>">View only <?= ($approved === "N") ? "Approved" : "BANNED"; ?></a>
-&nbsp; &nbsp; <a href="?see_banned=all">View ALL</a>&nbsp; &nbsp; 
+<a href="?show_approved=<?= $toggle ?>">View only <?= ($toggle === "Y") ? "Approved" : "BANNED"; ?></a>
+&nbsp; &nbsp; <a href="?show_approved=all">View ALL</a>&nbsp; &nbsp; 
 <?php
 
 echo $links;

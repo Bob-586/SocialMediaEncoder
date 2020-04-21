@@ -1,6 +1,6 @@
 <?php
 
-sleep(2);
+sleep(1);
 
 require_once 'db.php';
 

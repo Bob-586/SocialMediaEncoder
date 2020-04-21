@@ -1,5 +1,7 @@
 <?php
 
+require_once 'compression.php'; 
+
 function do_options_backwards(array $options, string $default = '', string $select_by = 'text', array $a = array()): string {
     $more = '';
     if (count($a)) {

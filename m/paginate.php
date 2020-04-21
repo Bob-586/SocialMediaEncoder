@@ -13,6 +13,8 @@ class paginate {
     private $_query;
     private $_total;
     private $_links;
+    private $_href_limit = "&limit=";
+    private $_href_page =  "?page=";
 
     public function __construct($conn, string $query) {
         $this->_conn = $conn;
@@ -25,6 +27,11 @@ class paginate {
     public function set_pages(int $limit = 10, int $page = 1) {
         $this->_limit = $limit;
         $this->_page = $page;
+    }
+    
+    public function set_js_router() {
+        $this->_href_limit = "/";
+        $this->_href_page = "#Page/";
     }
     
     public function set_links(array $links) {
@@ -78,29 +85,28 @@ class paginate {
         if ( $this->_page == 1 ) {
             $html .= '<li class="' . $class_disabled . '"><a href="#">&laquo;</a></li>';
         } else {
-            $html .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . $this->_links . '">&laquo;</a></li>';
+            $html .= '<li class="' . $class . '"><a href="' .  $this->_href_page . ( $this->_page - 1 ) . $this->_href_limit . $this->_limit . $this->_links . '">&laquo;</a></li>';
         }
         
-
         if ( $start > 1 ) {
-            $html .= '<li><a href="?limit=' . $this->_limit . '&page=1"' . $this->_links . '>1</a></li>';
+            $html .= '<li><a href="' . $this->_href_page . $this->_href_limit . $this->_limit . $this->_links . '>1</a></li>';
             $html .= '<li class="' . $class_disabled . '"><span>...</span></li>';
         }
 
         for ( $i = $start ; $i <= $end; $i++ ) {
             $no_class  = ( $this->_page == $i ) ? "active" : "";
-            $html .= '<li class="' . $no_class . '"><a href="?limit=' . $this->_limit . '&page=' . $i . $this->_links . '">' . $i . '</a></li>';
+            $html .= '<li class="' . $no_class . '"><a href="' . $this->_href_page . $i . $this->_href_limit . $this->_limit . $this->_links . '">' . $i . '</a></li>';
         }
 
         if ( $end < $last ) {
             $html .= '<li class="' . $class_disabled . '"><span>...</span></li>';
-            $html .= '<li><a href="?limit=' . $this->_limit . '&page=' . $last . $this->_links . '">' . $last . '</a></li>';
+            $html .= '<li><a href="' . $this->_href_page . $last . $this->_href_limit . $this->_limit . $this->_links . '">' . $last . '</a></li>';
         }
 
         if ( $this->_page == $last ) {
             $html .= '<li class="' . $class_disabled . '"><a href="#">&raquo;</a></li>';
         } else {
-            $html .= '<li class="' . $class . '"><a href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . $this->_links . '">&raquo;</a></li>';
+            $html .= '<li class="' . $class . '"><a href="' . $this->_href_page . ( $this->_page + 1 ) . $this->_href_limit . $this->_limit . $this->_links . '">&raquo;</a></li>';
         }        
 
         $html .= '</ul>';
@@ -120,14 +126,14 @@ class paginate {
 
         // Prev. Page
         $class = ( $this->_page == 1 ) ? "disabled" : "";
-        $href = ( $this->_page == 1 ) ? "" : 'href="?limit=' . $this->_limit . '&page=' . ( $this->_page - 1 ) . $this->_links . '"' ;
+        $href = ( $this->_page == 1 ) ? "" : 'href="' . $this->_href_page . ( $this->_page - 1 ) . $this->_href_limit . $this->_limit . $this->_links . '"' ;
         $html .= '<a class="' . $class . ' item" ' . $href . '>&laquo;</a>';
 
         $html .= $this->create_jump_menu();
         
         // Next Page
         $class = ( $this->_page == $last ) ? "disabled" : "";
-        $href = ( $this->_page == $last ) ? "" : 'href="?limit=' . $this->_limit . '&page=' . ( $this->_page + 1 ) . $this->_links . '"';
+        $href = ( $this->_page == $last ) ? "" : 'href="' . $this->_href_page . ( $this->_page + 1 ) . $this->_href_limit . $this->_limit . $this->_links . '"';
         $html .= '<a class="' . $class . ' item" ' . $href . '>&raquo;</a>';
         
         return $html;
@@ -140,7 +146,7 @@ class paginate {
         for($i=1; $i <= $last; $i++) {
           $option .= ($i == $this->_page) ? "<option value=\"{$i}\" selected>Page {$i}</option>\n":"<option value=\"{$i}\">Page {$i}</option>\n";
         }
-        return "<label>{$label}<select class=\"{$item}\" onchange=\"window.location='?limit={$this->_limit}{$this->_links}&page='+this[this.selectedIndex].value;return false;\">"
+        return "<label>{$label}<select class=\"{$item}\" onchange=\"window.location='{$this->_href_page}'+this[this.selectedIndex].value+'{$this->_href_limit}{$this->_limit}{$this->_links}'\">"
             . "{$option}</select>"
             . "{$end_label}</label>\n";
     }
@@ -160,7 +166,7 @@ class paginate {
           $items = "<option selected value=\"{$this->_limit}\">{$this->_limit}</option>\n" . $items;
         }
         
-        return "<label>{$label}<select class=\"{$item}\" onchange=\"window.location='?page=1{$this->_links}&limit='+this[this.selectedIndex].value;return false;\">{$items}</select>"
+        return "<label>{$label}<select class=\"{$item}\" onchange=\"window.location='{$this->_href_page}1{$this->_href_limit}'+this[this.selectedIndex].value\">{$items}</select>"
         . "{$end_label}</label>\n";
     }
     

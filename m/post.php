@@ -14,14 +14,14 @@
             var grr = uri.split('/<?= basename(__DIR__) ?>/');
             var mysite = grr[0] + '/<?= basename(__DIR__) ?>/';    
         </script>        
-        <script type="text/javascript" src="../dist/all.min.js?v=1.3" defer></script>
-        <script type="text/javascript" src="../dist/feed.min.js?v=1.3" defer></script>
+        <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
+        <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
         <link rel="manifest" href="../manifest.json">
     </head>
     <body>
-            
-        <?php require_once 'post_body.php'; ?>
         
+        <?php require_once 'post_body.php'; ?>
+        <div style="float: right;"><a href="feed.php">Just the Messages Feed</a></div>
         <script type="text/javascript" src="../dist/vkb.min.js"></script>
         <script type="text/javascript" src="../dist/keyboard_layout.js"></script>
 
