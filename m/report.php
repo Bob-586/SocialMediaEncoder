@@ -38,7 +38,7 @@ $reasons = [
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-      <span class="close">&times;</span>
+        <span class="close" onclick="document.getElementById('ReportModal').style.display = 'none';">&times;</span>
       <h2>Report Abuse</h2>
     </div>
     <div class="modal-body">
@@ -80,10 +80,6 @@ function btn_report(id) {
     document.getElementById("ReportModal").style.display = "block";
 }
 
-/* When the user clicks on <span> (x), close the modal */
-document.getElementsByClassName("close")[0].onclick = function() {
-    document.getElementById("ReportModal").style.display = "none";
-}
 /* When the user clicks anywhere outside of the modal, close it */
 window.onclick = function(event) {
   if (event.target == document.getElementById("ReportModal")) {
