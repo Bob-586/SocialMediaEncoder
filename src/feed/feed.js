@@ -47,16 +47,12 @@ function post() {
                 } else {
                     if (obj.hasOwnProperty('Success') && obj.hasOwnProperty('id')) {
                         var id = obj.id;
-                        var url = window.location.href;
-                        var url2 = url.replace("post.php", "");
-                        var url_clean = url2.replace("index.php", "");
-                        
                         var ds = "";
                         if (obj.hasOwnProperty('ds')) {
                             ds = "/" + obj.ds;
                         }
                         
-                        var msg = obj.Success + ". Your Link is: " + url_clean + id + ds;
+                        var msg = obj.Success + ". Your Link is: " + mysite + id + ds;
                         document.getElementById('msg').innerHTML = msg;
                         document.getElementById('enc').value = "";
                     }

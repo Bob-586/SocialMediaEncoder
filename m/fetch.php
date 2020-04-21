@@ -34,8 +34,8 @@ $id = $_GET['id'] ?? '';
                <ul id="feed_update_list"></ul>
         </div>
 
-        <a href="feed.php#Post" class="uk-button uk-button-secondary uk-button-large">Encode & POST - new message</a>
-        <a href="feed.php#Page/1/3" class="uk-button uk-button-primary uk-button-large">View Message Feed</a>
+        <a href="index.php#Post" class="uk-button uk-button-secondary uk-button-large">Encode & POST - new message</a>
+        <a href="index.php#Page/1/3" class="uk-button uk-button-primary uk-button-large">View Message Feed</a>
         <?php require_once 'report.php'; ?>
         
     </body>

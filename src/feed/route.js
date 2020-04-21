@@ -23,17 +23,21 @@ function unhide_post() {
     document.getElementById('posting').style.display = "block";
     document.getElementById('unhidepost').style.display = "none";
 }
-            
+
+var loaded_keyboard = false;            
 function load_keyboard() {
-    var elm = (document.getElementsByTagName('script')[0] || document.getElementsByTagName('head')[0]);
-    var script = document.createElement('script');
-    script.type = "text/javascript";
-    script.src = "../dist/vkb.min.js";
-    elm.parentNode.insertBefore(script, elm);
-    var script2 = document.createElement('script');
-    script2.type = "text/javascript";
-    script2.src = "../dist/keyboard_layout.js";
-    elm.parentNode.insertBefore(script2, elm);
+    if (loaded_keyboard === false) {
+        var elm = (document.getElementsByTagName('script')[0] || document.getElementsByTagName('head')[0]);
+        var script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = "../dist/vkb.min.js";
+        elm.parentNode.insertBefore(script, elm);
+        var script2 = document.createElement('script');
+        script2.type = "text/javascript";
+        script2.src = "../dist/keyboard_layout.js";
+        elm.parentNode.insertBefore(script2, elm);
+        loaded_keyboard = true;
+    } 
 }            
             
 var router = new Grapnel();            
