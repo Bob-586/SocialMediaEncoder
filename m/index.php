@@ -24,8 +24,9 @@
         <script type="text/javascript" src="../dist/feed.min.js?v=1.3"></script>
     </head>
     <body>
-        <div id="posting"><a href="#Post" class="uk-button uk-button-secondary uk-button-large">POST new Message</a></div>
-        <div id="unhidepost"></div>
+        <div id="posting"></div>
+        <div id="showpostbtn" style="display: none;"><br><a href="#Post" onclick="document.getElementById('posting').style.display='block'; document.getElementById('showpostbtn').style.display='none';" class="uk-button uk-button-secondary uk-button-large">POST new Message</a></div>
+        <div id="showfeedbtn" style="display: none;"><br><a href="#Page/1/3" onclick="document.getElementById('showfeedbtn').style.display='none';" class="uk-button uk-button-secondary uk-button-small">Show Messages Feed</a></div>
         
         <div id="pag-links"></div>
         

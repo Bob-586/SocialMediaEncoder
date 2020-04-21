@@ -9,19 +9,30 @@ function show_main() {
     }            
 }
 
-function hide_post() {
-    document.getElementById('posting').style.display = "none";
-    var feedme = "";
-    if (did_feed === false) {
-        feedme = '<br><br><a href="#Page/1/3" onclick="this.style.display=\'none\';" class="uk-button uk-button-secondary uk-button-small">Show Messages Feed</a>';
+function toggle_post_btns() {
+    var is_post = document.getElementById('posting');
+    if (is_post.innerHTML === "" || is_post.style.display === "none") {
+        document.getElementById('showpostbtn').style.display = "block";
+    } else {
+        document.getElementById('showpostbtn').style.display = "none";
     }
-    document.getElementById('unhidepost').innerHTML = '<button onclick="unhide_post();">Show Posts</button>' + feedme;
-    document.getElementById('unhidepost').style.display = "block";
 }
 
-function unhide_post() {
-    document.getElementById('posting').style.display = "block";
-    document.getElementById('unhidepost').style.display = "none";
+function toggle_feed_btns() {
+    var is_feed = document.getElementById('feed_update_list').innerHTML;
+    if (is_feed === "") { 
+        document.getElementById('showfeedbtn').style.display = "block";
+    } else {
+        document.getElementById('showfeedbtn').style.display = "none";
+    }
+}
+
+function in_post() {
+    document.getElementById('showpostbtn').style.display = "none";
+}
+
+function in_feed() {
+    document.getElementById('showfeedbtn').style.display = "none";
 }
 
 var loaded_keyboard = false;            
@@ -50,29 +61,27 @@ router.on('navigate', function() {
 
 var did_feed = false;
 router.get('Page/:page/:limit', function (req) {
-        did_feed = true;
+        in_feed();
         document.getElementById('footer-pag-links').style.display = "none";
         document.getElementById('wait').innerHTML = "Decoding your Message...<b>((Please wait a few seconds))...</b>!";
         postAjax('links.php', { show: true, page: req.params.page, limit: req.params.limit }, function(data) {
             document.getElementById('pag-links').innerHTML = data;
             document.getElementById('footer-pag-links').innerHTML = data;
         });
+        toggle_post_btns();
         document.getElementById('feed_update_list').innerHTML = "";
         feed_fetchs(req.params.page, req.params.limit);
 });
 
 router.get('Post', function (req) {
+        in_post();
         postAjax('post_body.php', { }, function(data) {
-            if (did_feed === false) {
-                var feedme = '<br><a href="#Page/1/3" onclick="this.style.display=\'none\';" class="uk-button uk-button-secondary uk-button-small">Show Messages Feed</a>';
-            } else {
-                var feedme = "";
-            }
-            document.getElementById('posting').innerHTML = data + feedme;
+            document.getElementById('posting').innerHTML = data;
             fetch_styles();
             show_main();
             load_keyboard();
         });
+        toggle_feed_btns();
 });
 
 /* Keep this as the very last Route, for 404 to work right! */
