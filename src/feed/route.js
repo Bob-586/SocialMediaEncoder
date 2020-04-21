@@ -59,7 +59,6 @@ router.on('navigate', function() {
        document.getElementById('wait').innerHTML = "";
 });
 
-var did_feed = false;
 router.get('Page/:page/:limit', function (req) {
         in_feed();
         document.getElementById('footer-pag-links').style.display = "none";
