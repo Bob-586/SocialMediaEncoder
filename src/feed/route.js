@@ -35,22 +35,40 @@ function in_feed() {
     document.getElementById('showfeedbtn').style.display = "none";
 }
 
-var loaded_keyboard = false;            
+function find_script(id) {
+    var ii, xs = document.getElementsByTagName('script');
+    for (ii = 0; ii < xs.length; ii++) {
+        if ( xs[ii].id === id ) {
+           return true;
+        }
+    }
+    xs = document.getElementsByTagName('head');
+    for (ii = 0; ii < xs.length; ii++) {
+        if ( xs[ii].id === id ) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function load_keyboard() {
-    if (loaded_keyboard === false) {
         var elm = (document.getElementsByTagName('script')[0] || document.getElementsByTagName('head')[0]);
-        var script = document.createElement('script');
-        script.type = "text/javascript";
-        script.src = "../dist/vkb.min.js";
-        elm.parentNode.insertBefore(script, elm);
-        sleep(1100).then(function() {
-            var script2 = document.createElement('script');
-            script2.type = "text/javascript";
-            script2.src = "../dist/keyboard_layout.js";
-            elm.parentNode.insertBefore(script2, elm);
-        });
-        loaded_keyboard = true;
-    } 
+        if (find_script('vkb') === false) {
+            var script = document.createElement('script');
+            script.type = "text/javascript";
+            script.id = "vkb";
+            script.src = "../dist/vkb.min.js";
+            elm.parentNode.insertBefore(script, elm);
+        }
+        if (find_script('layout') === false) {
+            sleep(1500).then(function() {
+                var script2 = document.createElement('script');
+                script2.type = "text/javascript";
+                script2.id = "layout";
+                script2.src = "../dist/keyboard_layout.js";
+                elm.parentNode.insertBefore(script2, elm);
+            });
+        }
 }            
 
 var router = new Grapnel();            
@@ -81,6 +99,10 @@ router.get('Post', function (req) {
                 show_main();
                 load_keyboard();
             });
+        } else {
+            if (document.getElementById('dvkb').innerHTML === "") {
+                load_keyboard();
+            }
         }
         toggle_feed_btns();
 });

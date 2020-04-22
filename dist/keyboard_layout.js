@@ -11,8 +11,8 @@ function handleShift() {
 
 var Keyboard = window.SimpleKeyboard.default;
 var myKeyboard = new Keyboard({
-    onChange: input => onChange(input),
-    onKeyPress: button => onKeyPress(button),
+    onChange: function(input) { onChange(input); },
+    onKeyPress: function(button) { onKeyPress(button); } ,
     newLineOnEnter: true,
     layout: {
         'default': [
