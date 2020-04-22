@@ -16,7 +16,7 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
             <section>
             <fieldset>
             <legend>Message Options</legend>    
-                <input type="text" id="tags" maxlength="200" autocomplete="off" /><label for="tags">*(optional) Hash Tags</label>
+                <input type="text" id="tags" name="tags" maxlength="200" autocomplete="off" /><label for="tags">*(optional) Hash Tags</label>
                 <br>
                 <input type="password" id="pwd" autocomplete="off" /><label for="pwd">*(optional) Password for Group</label>
                 <br>

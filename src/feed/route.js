@@ -74,12 +74,14 @@ router.get('Page/:page/:limit', function (req) {
 
 router.get('Post', function (req) {
         in_post();
-        postAjax('post_body.php', { }, function(data) {
-            document.getElementById('posting').innerHTML = data;
-            fetch_styles();
-            show_main();
-            load_keyboard();
-        });
+        if (document.getElementById('posting').innerHTML === "") {
+            postAjax('post_body.php', { }, function(data) {
+                document.getElementById('posting').innerHTML = data;
+                fetch_styles();
+                show_main();
+                load_keyboard();
+            });
+        }
         toggle_feed_btns();
 });
 
