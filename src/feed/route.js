@@ -71,6 +71,13 @@ function load_keyboard() {
         }
 }            
 
+function passworded() {
+    var hash = location.hash.split('/');
+    var msg_id = hash[1];
+    var vc = hash[2];
+    feed_fetch(req.params.msg, req.params.vc);
+}
+
 var router = new Grapnel();            
 
 router.on('navigate', function() {
@@ -88,6 +95,20 @@ router.get('Page/:page/:limit', function (req) {
         toggle_post_btns();
         document.getElementById('feed_update_list').innerHTML = "";
         feed_fetchs(req.params.page, req.params.limit);
+});
+
+router.get('Message/:msg/:vc?', function (req) {
+        document.getElementById('pag-links').innerHTML = "";
+        document.getElementById('footer-pag-links').style.display = "none";
+        document.getElementById('wait').innerHTML = "Decoding your Message...<b>((Please wait a few seconds))...</b>!";
+        document.getElementById('showfeedbtn').style.display = "block";
+        toggle_post_btns();
+        document.getElementById('feed_update_list').innerHTML = "";
+        var vc = req.params.vc;
+        if (typeof(vc) === "undefined") {
+            vc = "";
+        }
+        feed_fetch(req.params.msg, vc);
 });
 
 router.get('Post', function (req) {

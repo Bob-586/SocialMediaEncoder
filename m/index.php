@@ -30,6 +30,11 @@
         
         <div id="pag-links"></div>
         
+        <div id="password" style="display: none;">
+            <label for="pwd">Required Password: </label>
+            <input type="password" id="pwd" />
+            <button onclick="passworded();">Decode</button>
+        </div>
         <div id="wait"></div>
         <div id="feed_container">
                <ul id="feed_update_list"></ul>

@@ -2,9 +2,9 @@
 $vc = $_GET['vc'] ?? '';
 $id = $_GET['id'] ?? '';
 
-$lc = "?id={$id}";
+$lc = "{$id}";
 if (! empty($vc)) {
-    $lc .= "&vc={$vc}";
+    $lc .= "/{$vc}";
 }
 
 $cwd = basename(__DIR__);
@@ -17,7 +17,7 @@ $cwd = basename(__DIR__);
         var grr = uri.split('/<?= $cwd ?>/');
         var path = grr[0] + '/<?= $cwd ?>';
         
-        window.location = path + "/fetch.php<?= $lc ?>";
+        window.location = path + "/index.php#Message/<?= $lc ?>";
     </script>
     </head>
 </html>    
