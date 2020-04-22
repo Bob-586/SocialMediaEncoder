@@ -71,17 +71,61 @@ function load_keyboard() {
         }
 }            
 
+function get_pwd_from_hash() {
+    var vc = "";
+    var lh = location.hash;
+    var index = lh.indexOf('/');
+    /* Message Hash Found */
+    if (lh.indexOf('#Message') === 0) {
+        var hash_tags = lh.split('#Message');
+        var all_tags = hash_tags[1];
+        var split_tags = all_tags.split('/');
+        var msg_id = split_tags[1];
+        var vc = split_tags[2];
+        if (typeof(vc) === "undefined") {
+             vc = "";
+        }
+        return { msg: msg_id, vc: vc };
+    } 
+    /* No Slash here */
+    if (index === -1) {
+        var hash_tags = lh.split('#');
+        msg_id = hash_tags[1];
+        return { msg: msg_id, vc: vc };
+    } 
+    var hash_index = lh.indexOf('#');
+    /* No Hash */
+    if (hash_index === -1) {
+        var split_tags = lh.split('/');
+        var msg_id = split_tags[1];
+        var vc = split_tags[2];
+        if (typeof(vc) === "undefined") {
+            vc = "";
+        }
+        return { msg: msg_id, vc: vc };
+    }
+    /* Hash Route */
+    var hash_tags = lh.split('#');
+    var all_tags = hash_tags[1];
+    var split_tags = all_tags.split('/');
+    var msg_id = split_tags[0];
+    var vc = split_tags[1];
+    if (typeof(vc) === "undefined") {
+         vc = "";
+    }
+    return { msg: msg_id, vc: vc };
+}
+
 function passworded() {
-    var hash = location.hash.split('/');
-    var msg_id = hash[1];
-    var vc = hash[2];
-    feed_fetch(req.params.msg, req.params.vc);
+    var ret = get_pwd_from_hash();
+    feed_fetch(ret.msg, ret.vc);
 }
 
 var router = new Grapnel();            
 
 router.on('navigate', function() {
        document.getElementById('wait').innerHTML = "";
+       document.getElementById('password').style.display = "none";
 });
 
 router.get('Page/:page/:limit', function (req) {
@@ -97,7 +141,7 @@ router.get('Page/:page/:limit', function (req) {
         feed_fetchs(req.params.page, req.params.limit);
 });
 
-router.get('Message/:msg/:vc?', function (req) {
+function do_msg_route(req) {
         document.getElementById('pag-links').innerHTML = "";
         document.getElementById('footer-pag-links').style.display = "none";
         document.getElementById('wait').innerHTML = "Decoding your Message...<b>((Please wait a few seconds))...</b>!";
@@ -109,6 +153,27 @@ router.get('Message/:msg/:vc?', function (req) {
             vc = "";
         }
         feed_fetch(req.params.msg, vc);
+}
+
+function was_it_found(arr, item) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] == item) { return true; }
+  }
+  return false;
+}
+
+router.get(':msg/:vc?', function (req) {
+    var skip_existing_routes = [
+        "Post", "Message"
+    ];
+   
+    if (was_it_found(skip_existing_routes, req.params.msg) === false) {
+        do_msg_route(req);
+    }
+});
+
+router.get('Message/:msg/:vc?', function (req) {
+        do_msg_route(req);
 });
 
 router.get('Post', function (req) {

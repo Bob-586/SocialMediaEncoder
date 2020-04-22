@@ -17,7 +17,7 @@
         <script type="text/javascript">
             var uri = window.location.href.toString();
             var grr = uri.split('/<?= basename(__DIR__) ?>/');
-            var mysite = grr[0] + '/<?= basename(__DIR__) ?>/';    
+            var mysite = grr[0] + '/<?= basename(__DIR__) ?>#';    
         </script>
         <script type="text/javascript" src="../dist/grapnel.min.js"></script>
         <script type="text/javascript" src="../dist/all.min.js?v=1.3"></script>
@@ -31,6 +31,7 @@
         <div id="pag-links"></div>
         
         <div id="password" style="display: none;">
+            <br>
             <label for="pwd">Required Password: </label>
             <input type="password" id="pwd" />
             <button onclick="passworded();">Decode</button>
