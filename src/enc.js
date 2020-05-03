@@ -174,6 +174,7 @@ function better_chr_encoder(text) {
     for (var xe = 0; xe < text.length; xe++) {
         var st = text.charAt(xe);
         switch(st) {
+            case "?": ret_text += " ?"; break;
             case "!": ret_text += " !"; break;
             case ".": ret_text += " ."; break;
             case ",": ret_text += " ,"; break;     
