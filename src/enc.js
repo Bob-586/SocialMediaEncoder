@@ -181,6 +181,8 @@ function better_chr_encoder(text) {
             case ":": ret_text += " :"; break;
             case "(": ret_text += " ("; break;
             case ")": ret_text += " )"; break;
+            case "'": ret_text += " '"; break;
+            case '"': ret_text += ' "'; break;
             default: ret_text += st;
         }
     }
