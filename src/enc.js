@@ -169,6 +169,24 @@ function email_check(email) {
     }
 }
 
+function better_chr_encoder(text) {
+    var ret_text = "";
+    for (var xe = 0; xe < text.length; xe++) {
+        var st = text.charAt(xe);
+        switch(st) {
+            case "!": ret_text += " !"; break;
+            case ".": ret_text += " ."; break;
+            case ",": ret_text += " ,"; break;     
+            case ";": ret_text += " ;"; break;
+            case ":": ret_text += " :"; break;
+            case "(": ret_text += " ("; break;
+            case ")": ret_text += " )"; break;
+            default: ret_text += st;
+        }
+    }
+    return ret_text;
+}
+
 function do_enc(mode, omode, text, pwd) {
     
    if (text.length > 40 && text.trim().indexOf(" ") === -1) {
@@ -191,7 +209,8 @@ function do_enc(mode, omode, text, pwd) {
    }
    
    var str = text.toString(); // Cast to String
-   var clean = str.replace(/<[^>]*>/g, ''); // Strip HTML Tags
+   var str_spaced = better_chr_encoder(str);
+   var clean = str_spaced.replace(/<[^>]*>/g, ''); // Strip HTML Tags
    var arr = clean.split(" "); // Explode on spaces
    var u = arr.unique(); // Remove duplicate words from text
    
