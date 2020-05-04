@@ -171,20 +171,32 @@ function email_check(email) {
 
 function better_chr_encoder(text) {
     var ret_text = "";
+    var link_found = false;
     for (var xe = 0; xe < text.length; xe++) {
+        var http = text.substr(xe, 4).toLowerCase();
+        if (http === "http") {
+            link_found = true;
+        }        
         var st = text.charAt(xe);
-        switch(st) {
-            case "?": ret_text += " ?"; break;
-            case "!": ret_text += " !"; break;
-            case ".": ret_text += " ."; break;
-            case ",": ret_text += " ,"; break;     
-            case ";": ret_text += " ;"; break;
-            case ":": ret_text += " :"; break;
-            case "(": ret_text += " ("; break;
-            case ")": ret_text += " )"; break;
-            case "'": ret_text += " '"; break;
-            case '"': ret_text += ' "'; break;
-            default: ret_text += st;
+        if (link_found === true) {
+            ret_text += st;
+            if (st === " ") {
+                link_found = false;
+            }
+        } else {
+            switch(st) {
+                case "?": ret_text += " ?"; break;
+                case "!": ret_text += " !"; break;
+                case ".": ret_text += " ."; break;
+                case ",": ret_text += " ,"; break;     
+                case ";": ret_text += " ;"; break;
+                case ":": ret_text += " :"; break;
+                case "(": ret_text += " ("; break;
+                case ")": ret_text += " )"; break;
+                case "'": ret_text += " '"; break;
+                case '"': ret_text += ' "'; break;
+                default: ret_text += st;
+            }
         }
     }
     return ret_text;
