@@ -89,7 +89,7 @@ class paginate {
         }
         
         if ( $start > 1 ) {
-            $html .= '<li><a href="' . $this->_href_page . $this->_href_limit . $this->_limit . $this->_links . '>1</a></li>';
+            $html .= '<li><a href="' . $this->_href_page . $this->_href_limit . $this->_limit . $this->_links . '">1</a></li>';
             $html .= '<li class="' . $class_disabled . '"><span>...</span></li>';
         }
 
