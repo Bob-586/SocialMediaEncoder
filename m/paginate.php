@@ -80,7 +80,9 @@ class paginate {
         $start = ( ( $this->_page - $links ) > 0 ) ? $this->_page - $links : 1;
         $end = ( ( $this->_page + $links ) < $last ) ? $this->_page + $links : $last;
 
-        $html = '<ul class="' . $list_class . '">';
+        $next_page = ( $this->_page == $last ) ? 1 : $this->_page + 1;
+        
+        $html = '<ul class="' . $list_class . '"><li><a href="' .  $this->_href_page . $next_page . $this->_href_limit . $this->_limit . $this->_links . '">Read More</a></li>';
  
         if ( $this->_page == 1 ) {
             $html .= '<li class="' . $class_disabled . '"><a href="' .  $this->_href_page . '1' . $this->_href_limit . $this->_limit . $this->_links . '">&laquo;</a></li>';

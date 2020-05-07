@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Freedom Feed - Social Media Encoder v1.3</title>
+        <?php include 'title.php'; ?>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../dist/uikit.min.css">
@@ -43,7 +43,10 @@
 
         <?php require_once 'report.php'; ?>
         
-        <footer><div id="footer-pag-links" style="display: none;"></div></footer>
+        <footer>
+            <div id="footer-pag-links" style="display: none;"></div>
+            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="../images/cc88x31.png" /></a> &nbsp; This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. Free as in Freedom, to Share/Use...<br/><br/>
+        </footer>
         
         <script type="text/javascript" src="../dist/post_styles.min.js"></script>
         <script type="text/javascript" src="../dist/route.min.js"></script>
