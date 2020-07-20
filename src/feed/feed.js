@@ -30,13 +30,13 @@ function post() {
     document.getElementById('msg').innerHTML = "Posting....";
     sleep(2500).then(function() {
         var enc = document.getElementById('enc').value;
-        var pwd = document.getElementById('pwd').value;
+        var pwd = ""; // document.getElementById('pwd').value;
         var track = document.getElementById('track').checked;
         var l = (pwd.length >0);
         try {
             var ret = do_enc('xor', 'des', enc, pwd);
             var styles = get_styles();
-            var tags = document.getElementById('tags').value;
+            var tags = ""; // document.getElementById('tags').value;
             postAjax('do_post.php', { enc: ret, pass: l, style: styles, tags: tags, track: track }, function(json){
                 document.getElementById('post').disabled = false;
                 var obj = JSON.parse(json);

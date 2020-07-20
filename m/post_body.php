@@ -11,11 +11,13 @@ $track = (isset($_COOKIE[$cookie_name])) ? "checked" : "";
         <div id="main" style="visibility: hidden;">
             <section>
             <fieldset>
-            <legend>Message Options</legend>    
+            <legend>Message Options</legend>
+<!--    
                 <input type="text" id="tags" name="tags" maxlength="200" autocomplete="off" /><label for="tags">*(optional) Hash Tags</label>
                 <br>
                 <input type="password" id="pwd" autocomplete="off" /><label for="pwd">*(optional) Password for Group</label>
                 <br>
+-->
                 <input type="checkbox" id="track" value="true" <?= $track ?>/><label for="track">Remember my posts</label>
 <?php if ($track === "checked") { ?>                
                 &nbsp; &nbsp; &nbsp; &nbsp; <a href="relookat.php">Re-Look-At-Your-Past-Posts</a>
