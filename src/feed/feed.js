@@ -32,7 +32,7 @@ function post() {
         var enc = document.getElementById('enc').value;
         var pwd = ""; // document.getElementById('pwd').value;
         var track = document.getElementById('track').checked;
-        var l = (pwd.length >0);
+        var l = false; //(pwd.length >0);
         try {
             var ret = do_enc('xor', 'des', enc, pwd);
             var styles = get_styles();
